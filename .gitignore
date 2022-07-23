@@ -29,5 +29,5 @@ node_modules/
 
 # My:
 react-example/
-
 .idea/
+build/
