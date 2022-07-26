@@ -5,60 +5,89 @@ pragma solidity >=0.7.0 <0.9.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Election is Ownable {
-    // Model a Candidate
-    struct Candidate {
-        uint id;
-        string name;
-        uint voteCount;
-    }
+	struct Candidate {
+		uint id;
+		string name;
+		uint voteCount;
+	}
 
-    enum State {Created, Voting, Ended}
+	enum State {Created, Voting, Ended}
 
-    // VARIABLES
-    address public admin;
-    State public state;
+	// VARIABLES
+	address public admin;
+	State public state;
 
-    // Store accounts that have voted
-    mapping(address => bool) public voters;
+	// Store accounts that have voted
+	mapping(address => bool) public voters;
 
-    // Store candidates and their votes count
-    mapping(uint => Candidate) public candidates;
-    uint public candidatesCount;
+	// Store candidates and their votes count
+	mapping(uint => Candidate) public candidates;
+	uint public candidatesCount;
 
-    // EVENTS
-    event votedEvent(uint indexed _candidateId);
+	// EVENTS
+	event votedEvent(uint indexed _candidateId);
 
-    // MODIFIERS
-    modifier inState(State _state){
-        require(state == _state, "Can't perform in this phase of elections");
-        _;
-    }
+	// MODIFIERS
+	modifier isState(State _state){
+		require(state == _state, "Can't perform in this phase of elections");
+		_;
+	}
 
-    // CONSTRUCTOR
-    constructor() {
-        state = State.Created;
-    }
+	// CONSTRUCTOR
+	constructor() {
+		state = State.Created;
+	}
 
-    // FUNCTIONS
-    function addCandidate(string memory _name) public onlyOwner() isState(State.Created) {
-        candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
-    }
+	// FUNCTIONS
+	function addCandidate(string memory _name)
+	public onlyOwner isState(State.Created)
+	{
+		candidatesCount++;
+		candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+	}
 
-    function vote(uint _candidateId) public {
-        // require that they haven't voted before
-        require(!voters[msg.sender]);
+	function addVoter(address _voterAddress, string memory _voterName)
+	public onlyOwner isState(State.Created)
+	{
+		// voter memory v;
+		// v.voterName = _voterName;
+		// v.voted = false;
+		// voterRegister[_voterAddress] = v;
+		// totalVoter++;
+		// emit voterAdded(_voterAddress);
+	}
 
-        // require a valid candidate
-        require(_candidateId > 0 && _candidateId <= candidatesCount);
+	function startVote()
+	public onlyOwner isState(State.Created)
+	{
+		state = State.Voting;
+		//emit voteStarted();
+	}
 
-        // record that voter has voted
-        voters[msg.sender] = true;
+	function endVote()
+	public onlyOwner isState(State.Voting)
+	{
+		state = State.Ended;
+		//finalResult = countResult; //move result from private countResult to public finalResult
+		//emit voteEnded(finalResult);
+	}
 
-        // update candidate vote Count
-        candidates[_candidateId].voteCount ++;
+	function vote(uint _candidateId)
+	public isState(State.Voting)
+	{
+		// require that they haven't voted before
+		require(!voters[msg.sender]);
 
-        // trigger voted event
-        emit votedEvent(_candidateId);
-    }
+		// require a valid candidate
+		require(_candidateId > 0 && _candidateId <= candidatesCount);
+
+		// record that voter has voted
+		voters[msg.sender] = true;
+
+		// update candidate vote Count
+		candidates[_candidateId].voteCount ++;
+
+		// trigger voted event
+		emit votedEvent(_candidateId);
+	}
 }
