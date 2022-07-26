@@ -14,7 +14,6 @@ contract Election is Ownable {
 	enum State {Created, Voting, Ended}
 
 	// VARIABLES
-	address public admin;
 	State public state;
 
 	// Store accounts that have voted
