@@ -1,6 +1,10 @@
-pragma solidity 0.5.16;
+// SPDX-License-Identifier: UNLICENSED
 
-contract Election {
+pragma solidity >=0.7.0 <0.9.0;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Election is Ownable {
     // Model a Candidate
     struct Candidate {
         uint id;
@@ -8,29 +12,40 @@ contract Election {
         uint voteCount;
     }
 
+    enum State {Created, Voting, Ended}
+
+    // VARIABLES
+    address public admin;
+    State public state;
+
     // Store accounts that have voted
     mapping(address => bool) public voters;
-    // Store Candidates
-    // Fetch Candidate
+
+    // Store candidates and their votes count
     mapping(uint => Candidate) public candidates;
-    // Store Candidates Count
     uint public candidatesCount;
 
-    // voted event
-    event votedEvent (uint indexed _candidateId);
+    // EVENTS
+    event votedEvent(uint indexed _candidateId);
 
-    // Constructor
-    constructor() public {
-        addCandidate("Candidate 1");
-        addCandidate("Candidate 2");
+    // MODIFIERS
+    modifier inState(State _state){
+        require(state == _state, "Can't perform in this phase of elections");
+        _;
     }
 
-    function addCandidate (string memory _name) private {
+    // CONSTRUCTOR
+    constructor() {
+        state = State.Created;
+    }
+
+    // FUNCTIONS
+    function addCandidate(string memory _name) public onlyOwner() isState(State.Created) {
         candidatesCount ++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
     }
 
-    function vote (uint _candidateId) public {
+    function vote(uint _candidateId) public {
         // require that they haven't voted before
         require(!voters[msg.sender]);
 
