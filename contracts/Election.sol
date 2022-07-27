@@ -11,20 +11,24 @@ contract Election is Ownable {
 		uint voteCount;
 	}
 
+	struct Voter {
+		address voterAddress;
+		bool voted;
+	}
+
 	enum State {Created, Voting, Ended}
 
 	// VARIABLES
 	State public state;
-
-	// Store accounts that have voted
-	mapping(address => bool) public voters;
-
-	// Store candidates and their votes count
-	mapping(uint => Candidate) public candidates;
-	uint public candidatesCount;
+	mapping(address => Voter) public voters; // Store accounts that have voted
+	uint public votersCount = 0;
+	uint public totalVotesCount = 0;
+	mapping(uint => Candidate) public candidates; // Store candidates and their votes count
+	uint public candidatesCount = 0;
 
 	// EVENTS
 	event votedEvent(uint indexed _candidateId);
+	event voterAdded(address voter);
 
 	// MODIFIERS
 	modifier isState(State _state){
@@ -41,19 +45,22 @@ contract Election is Ownable {
 	function addCandidate(string memory _name)
 	public onlyOwner isState(State.Created)
 	{
-		candidatesCount++;
+		require(bytes(_name).length != 0);
 		candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+		candidatesCount++;
 	}
 
-	function addVoter(address _voterAddress, string memory _voterName)
+	function addVoter(address _voterAddress)
 	public onlyOwner isState(State.Created)
 	{
-		// voter memory v;
-		// v.voterName = _voterName;
-		// v.voted = false;
-		// voterRegister[_voterAddress] = v;
-		// totalVoter++;
-		// emit voterAdded(_voterAddress);
+		// Do not allow address 0x0
+		require(_voterAddress != address(0));
+		// Do not allow re-add of an existing voter
+		require(voters[_voterAddress].voterAddress == address(0));
+
+		voters[_voterAddress] = Voter(_voterAddress, false);
+		votersCount++;
+		emit voterAdded(_voterAddress);
 	}
 
 	function startVote()
@@ -75,16 +82,20 @@ contract Election is Ownable {
 	public isState(State.Voting)
 	{
 		// require that they haven't voted before
-		require(!voters[msg.sender]);
+		require(!voters[msg.sender].voted, 'You already voted!');
+
+		// require a valid voter
+		require(voters[msg.sender].voterAddress != address(0), 'You have not registered as a voter');
 
 		// require a valid candidate
-		require(_candidateId > 0 && _candidateId <= candidatesCount);
+		require(_candidateId >= 0 && _candidateId < candidatesCount, 'Unknown candidate');
 
 		// record that voter has voted
-		voters[msg.sender] = true;
+		voters[msg.sender].voted = true;
 
 		// update candidate vote Count
-		candidates[_candidateId].voteCount ++;
+		candidates[_candidateId].voteCount++;
+		totalVotesCount++;
 
 		// trigger voted event
 		emit votedEvent(_candidateId);
