@@ -12,8 +12,8 @@
   },
   "scripts": {
     "test": "truffle test",
-    "dev": "lite-server"
+    "start": "lite-server"
   },
-  "author": "",
+  "author": "Raz Ben Simon",
   "license": "MIT"
 }

@@ -10,7 +10,7 @@ const initialState = {
   contract: null
 };
 
-const reducer = (state, action) => {
+const reducer = (state: any, action: any) => {
   const { type, data } = action;
   switch (type) {
     case actions.init:
