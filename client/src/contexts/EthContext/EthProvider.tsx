@@ -5,10 +5,11 @@ import { reducer, actions, initialState } from './state';
 import { apiBaseUrl } from '../../config';
 
 type Props = {
+  contractName: string;
   children: React.ReactNode;
 };
 
-const EthProvider: React.FC<Props> = ({ children }: Props) => {
+const EthProvider: React.FC<Props> = ({ contractName, children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const init = useCallback(async (artifact: any) => {
@@ -34,7 +35,7 @@ const EthProvider: React.FC<Props> = ({ children }: Props) => {
   useEffect(() => {
     const tryInit = async () => {
       try {
-        const response = await fetch(`${apiBaseUrl}/SimpleStorage.json`);
+        const response = await fetch(`${apiBaseUrl}/${contractName}.json`);
         const artifact = await response.json();
         init(artifact);
       } catch (err) {
@@ -43,7 +44,7 @@ const EthProvider: React.FC<Props> = ({ children }: Props) => {
     };
 
     tryInit();
-  }, [init]);
+  }, [init, contractName]);
 
   useEffect(() => {
     const events = ['chainChanged', 'accountsChanged'];
@@ -64,8 +65,7 @@ const EthProvider: React.FC<Props> = ({ children }: Props) => {
           state,
           dispatch
         } as any
-      }
-    >
+      }>
       {children}
     </EthContext.Provider>
   );
