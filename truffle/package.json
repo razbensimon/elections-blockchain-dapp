@@ -4,14 +4,17 @@
   "description": "elections dapp for blockchain course project",
   "main": "truffle-config.js",
   "dependencies": {
-    "@truffle/hdwallet-provider": "^2.0.10",
-    "@openzeppelin/contracts": "^4.7.1"
+    "@openzeppelin/contracts": "^4.7.1",
+    "@truffle/hdwallet-provider": "^2.0.10"
   },
   "devDependencies": {
-    "lite-server": "^2.3.0"
+    "lite-server": "^2.3.0",
+    "nodemon": "^2.0.19"
   },
   "scripts": {
     "test": "truffle test",
+    "build": "truffle compile",
+    "build:watch": "nodemon --ext 'js,sol' --exec 'truffle compile'",
     "start": "lite-server"
   },
   "author": "Raz Ben Simon",
