@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout as AntdLayout, Menu } from 'antd';
+import Welcome from '../welcome/welcome';
 
 const { Header, Content, Footer } = AntdLayout;
 
@@ -21,6 +22,7 @@ export const Layout: React.FC = () => (
       />
     </Header>
     <Content style={{ padding: '0 50px' }}>
+      <Welcome />
       <div className="site-layout-content">Content</div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>Raz Ben Simon - HIT Blockchain Course 2022, Semester B</Footer>

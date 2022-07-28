@@ -1,18 +1,14 @@
-import './App.scss';
 import { EthProvider } from './contexts/EthContext';
-import Demo from './components/Demo';
-import Footer from './components/Footer';
 import { Layout } from './components/layout/layout';
+import styles from './App.module.scss';
 
 function App() {
   return (
     <EthProvider contractName="SimpleStorage">
-      <div id="App">
+      <div className={styles.app}>
         <div className="container">
           <Layout />
-          <Demo />
-          <hr />
-          <Footer />
+          {/*<Demo />*/}
         </div>
       </div>
     </EthProvider>
