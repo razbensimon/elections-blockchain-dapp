@@ -1,5 +1,5 @@
 const actions = {
-  init: "INIT",
+  init: 'INIT'
 };
 
 const initialState = {
@@ -16,12 +16,8 @@ const reducer = (state, action) => {
     case actions.init:
       return { ...state, ...data };
     default:
-      throw new Error("Undefined reducer action type");
+      throw new Error('Undefined reducer action type');
   }
 };
 
-export {
-  actions,
-  initialState,
-  reducer
-};
+export { actions, initialState, reducer };
