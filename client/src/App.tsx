@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { EthProvider } from './contexts/EthContext';
 import Demo from './components/Demo';
 import Footer from './components/Footer';
