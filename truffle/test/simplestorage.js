@@ -1,7 +1,7 @@
-const SimpleStorage = artifacts.require("SimpleStorage");
+const SimpleStorage = artifacts.require('SimpleStorage');
 
 contract('SimpleStorage', () => {
-  it('should read newly written values', async() => {
+  it('should read newly written values', async () => {
     const simpleStorageInstance = await SimpleStorage.deployed();
     var value = (await simpleStorageInstance.read.call()).toNumber();
 
@@ -9,10 +9,10 @@ contract('SimpleStorage', () => {
 
     await simpleStorageInstance.write(1);
     value = (await simpleStorageInstance.read.call()).toNumber();
-    assert.equal(value, 1, "1 was not written");
+    assert.equal(value, 1, '1 was not written');
 
     await simpleStorageInstance.write(2);
     value = (await simpleStorageInstance.read.call()).toNumber();
-    assert.equal(value, 2, "2 was not written");
+    assert.equal(value, 2, '2 was not written');
   });
 });

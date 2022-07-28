@@ -3,10 +3,8 @@
   "singleQuote": true,
   "printWidth": 120,
   "trailingComma": "none",
-  "parser": "typescript",
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
-  "doc": false,
-  "jsxBracketSameLine": true,
+  "bracketSameLine": true,
   "arrowParens": "avoid"
 }
