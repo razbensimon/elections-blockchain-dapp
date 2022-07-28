@@ -1,12 +1,14 @@
 import { useRef, useEffect } from 'react';
 
-function Contract({ value }) {
-  const spanEle = useRef(null);
+function Contract({ value }: { value: string }) {
+  const spanEle = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    if (!spanEle.current) return;
+
     spanEle.current.classList.add('flash');
     const flash = setTimeout(() => {
-      spanEle.current.classList.remove('flash');
+      spanEle.current!.classList.remove('flash');
     }, 300);
     return () => {
       clearTimeout(flash);

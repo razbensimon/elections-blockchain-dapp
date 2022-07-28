@@ -2,7 +2,15 @@ const actions = {
   init: 'INIT'
 };
 
-const initialState = {
+export type InitialState = {
+  artifact: any;
+  web3: any;
+  accounts: any;
+  networkID: any;
+  contract: any;
+};
+
+const initialState: InitialState = {
   artifact: null,
   web3: null,
   accounts: null,

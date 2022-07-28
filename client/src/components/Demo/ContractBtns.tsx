@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import useEth from '../../contexts/EthContext/useEth';
 
-function ContractBtns({ setValue }) {
+function ContractBtns({ setValue }: { setValue(val: string): void }) {
   const {
     state: { contract, accounts }
   } = useEth();
   const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = e => {
-    if (/^\d+$|^$/.test(e.target.value)) {
-      setInputValue(e.target.value);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (/^\d+$|^$/.test(event.target.value)) {
+      setInputValue(event.target.value);
     }
   };
 
@@ -18,8 +18,8 @@ function ContractBtns({ setValue }) {
     setValue(value);
   };
 
-  const write = async e => {
-    if (e.target.tagName === 'INPUT') {
+  const write = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    if ((event.target as any).tagName === 'INPUT') {
       return;
     }
     if (inputValue === '') {
@@ -34,7 +34,7 @@ function ContractBtns({ setValue }) {
     <div className="btns">
       <button onClick={read}>read()</button>
 
-      <div onClick={write} className="input-btn">
+      <div onClick={write as any} className="input-btn">
         write(
         <input type="text" placeholder="uint" value={inputValue} onChange={handleInputChange} />)
       </div>

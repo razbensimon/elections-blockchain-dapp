@@ -60,12 +60,10 @@ const EthProvider: React.FC<Props> = ({ contractName, children }: Props) => {
 
   return (
     <EthContext.Provider
-      value={
-        {
-          state,
-          dispatch
-        } as any
-      }>
+      value={{
+        state,
+        dispatch
+      }}>
       {children}
     </EthContext.Provider>
   );

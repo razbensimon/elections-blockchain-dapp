@@ -1,4 +1,4 @@
-function Link({ uri, text }) {
+function Link({ uri, text }: { uri: string; text: string }) {
   return (
     <a href={uri} target="_blank" rel="noreferrer">
       {text}
