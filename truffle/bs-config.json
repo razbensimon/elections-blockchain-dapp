@@ -1,0 +1,7 @@
+{
+  "port": 8200,
+  "cors": true,
+  "server": {
+    "baseDir": ["./src", "../client/src/contracts"]
+  }
+}

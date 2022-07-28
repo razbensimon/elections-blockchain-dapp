@@ -1,0 +1,19 @@
+{
+  "name": "elections-blockchain-dapp",
+  "version": "1.0.0",
+  "description": "elections dapp for blockchain course project",
+  "main": "truffle-config.js",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.10",
+    "@openzeppelin/contracts": "^4.7.1"
+  },
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  },
+  "scripts": {
+    "test": "truffle test",
+    "dev": "lite-server"
+  },
+  "author": "",
+  "license": "MIT"
+}
