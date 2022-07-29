@@ -13,7 +13,7 @@ export const NavBar = React.memo(() => {
   }, [location.pathname]);
 
   return (
-    <Header>
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <div className="logo" />
       <Menu
         theme="dark"
