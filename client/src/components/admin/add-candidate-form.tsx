@@ -1,18 +1,32 @@
+import { Button, Form, Input } from 'antd';
 import useEth from '../../contexts/EthContext/useEth';
-import { useEffect, useState } from 'react';
 
 type Props = {};
 
-const CandidateVotes: React.FC<Props> = ({}) => {
+const AddCandidateForm: React.FC<Props> = () => {
   const { state } = useEth();
   const { contract, accounts } = state;
-  const [candidatesCount, setCandidatesCount] = useState<number>();
+  const [form] = Form.useForm<{ candidateName: string }>();
 
-  useEffect(() => {
-    contract.methods.candidatesCount().call({ from: accounts[0] }).then(setCandidatesCount);
-  }, []);
-
-  return <div style={{ maxWidth: '500px' }}>Candidates Count: {candidatesCount}</div>;
+  return (
+    <div style={{ maxWidth: '500px' }}>
+      <Form
+        form={form}
+        name="control-hooks"
+        onFinish={async values => {
+          await contract.methods.addCandidate(values.candidateName).send({ from: accounts[0] });
+        }}>
+        <Form.Item name="candidateName" label="Candidate name" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Add
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 };
 
-export default CandidateVotes;
+export default AddCandidateForm;
