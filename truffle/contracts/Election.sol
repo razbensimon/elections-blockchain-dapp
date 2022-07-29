@@ -43,11 +43,20 @@ contract Election is Ownable {
 
 	// FUNCTIONS
 	function addCandidate(string memory _name)
-	public onlyOwner isState(State.Created)
+	public  isState(State.Created)
 	{
 		require(bytes(_name).length != 0);
 		candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
 		candidatesCount++;
+	}
+
+	function getCandidates() public onlyOwner view returns (Candidate[] memory){
+		Candidate[] memory arr = new Candidate[](candidatesCount);
+		for (uint i = 0; i < candidatesCount; i++) {
+			Candidate storage Candidate = candidates[i];
+			arr[i] = Candidate;
+		}
+		return arr;
 	}
 
 	function addVoter(address _voterAddress)
