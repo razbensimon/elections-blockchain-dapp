@@ -1,4 +1,4 @@
-import useEth from '../../contexts/EthContext/useEth';
+import useEth from '../../../contexts/EthContext/useEth';
 import { useEffect, useState } from 'react';
 import { Table } from 'antd';
 
