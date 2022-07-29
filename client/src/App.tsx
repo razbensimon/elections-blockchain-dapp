@@ -1,34 +1,24 @@
 import { EthProvider } from './contexts/EthContext';
 import { Layout } from './components/layout/layout';
 import styles from './App.module.scss';
-import CandidateVotes from './components/admin/candidate-votes';
-import AddCandidateForm from './components/admin/add-candidate-form';
-import ContractInfoSection from './components/admin/contract-info-section';
+import AdminPage from './components/routes/admin-page';
+import VoterPage from './components/routes/voter-page';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const contract = 'Election';
   return (
     <EthProvider contractName={contract}>
       <div className={styles.app}>
-        <Layout contract={contract}>
-          <div id="admin">
-            ADMIN
-            <ContractInfoSection />
-            <hr />
-            <CandidateVotes />
-            <hr />
-            <AddCandidateForm />
-          </div>
-          <hr />
-          <div id="voter">
-            VOTER ElectionResults: DropdownVoter:
-            <hr />
-            VoteHelper:
-          </div>
-          <hr />
-          MyAddress..........
-        </Layout>
-        {/*<Demo />*/}
+        <BrowserRouter>
+          <Layout contract={contract}>
+            <Routes>
+              <Route path="voter" element={<VoterPage />} />
+              <Route path="admin" element={<AdminPage />} />
+              <Route path="*" element={<Navigate to="/voter" />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
       </div>
     </EthProvider>
   );
