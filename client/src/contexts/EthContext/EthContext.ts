@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { InitialState } from './state';
+import { NetworkState } from './state';
 
-const EthContext = createContext<{ state: InitialState; dispatch: Function }>(null!);
+const EthContext = createContext<{ state: NetworkState; dispatch: Function }>(null!);
 
 export default EthContext;

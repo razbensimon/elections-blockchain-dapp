@@ -3,15 +3,16 @@ import NoticeNoArtifact from './NoticeNoArtifact';
 import NoticeWrongNetwork from './NoticeWrongNetwork';
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  contract: string;
 };
 
-function Demo({ children }: Props) {
+function Demo({ children, contract }: Props) {
   const { state } = useEth();
 
   return (
     <div className="demo">
-      {!state.artifact ? <NoticeNoArtifact /> : !state.contract ? <NoticeWrongNetwork /> : children}
+      {!state.artifact ? <NoticeNoArtifact contract={contract} /> : !state.contract ? <NoticeWrongNetwork /> : children}
     </div>
   );
 }

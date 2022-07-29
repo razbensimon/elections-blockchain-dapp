@@ -1,24 +1,20 @@
+import Web3 from 'web3';
+
 const actions = {
   init: 'INIT'
 };
 
-export type InitialState = {
+export type NetworkState = {
   artifact: any;
-  web3: any;
-  accounts: any;
-  networkID: any;
+  web3: Web3;
+  accounts: string[];
+  networkID: number;
   contract: any;
 };
 
-const initialState: InitialState = {
-  artifact: null,
-  web3: null,
-  accounts: null,
-  networkID: null,
-  contract: null
-};
+const initialState: NetworkState = {} as NetworkState;
 
-const reducer = (state: any, action: any) => {
+const reducer: React.Reducer<NetworkState, { type: string; data: NetworkState }> = (state, action) => {
   const { type, data } = action;
   switch (type) {
     case actions.init:

@@ -37,7 +37,7 @@ const EthProvider: React.FC<Props> = ({ contractName, children }: Props) => {
       try {
         const response = await fetch(`${apiBaseUrl}/${contractName}.json`);
         const artifact = await response.json();
-        init(artifact);
+        await init(artifact);
       } catch (err) {
         console.error(err);
       }
@@ -64,7 +64,7 @@ const EthProvider: React.FC<Props> = ({ contractName, children }: Props) => {
         state,
         dispatch
       }}>
-      {children}
+      {state ? children : 'Loading...'}
     </EthContext.Provider>
   );
 };

@@ -13,4 +13,19 @@ html {
 #root {
   width: 100vw;
   height: 100vh;
+  --primary-color: #1266cc;
+  --secondary-color: #f96400;
+  --flash-color: rgb(89, 255, 0);
+  --gray: #999;
+  --light-gray: #e0e0e0;
+  --dark-gray: #777;
+}
+
+code {
+  display: block;
+  white-space: pre-wrap;
+  padding: 1.2rem 2rem;
+  border-radius: 1rem;
+  background-color: var(--light-gray);
+  font-size: 1.4rem;
 }
