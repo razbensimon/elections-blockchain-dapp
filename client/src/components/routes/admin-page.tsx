@@ -7,7 +7,6 @@ import { Divider } from 'antd';
 export default function AdminPage() {
   return (
     <div>
-      ADMIN
       <ContractInfoSection />
       <Divider />
       <CandidateCounter />

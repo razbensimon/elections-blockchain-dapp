@@ -16,12 +16,7 @@ const ContractInfoSection: React.FC<Props> = () => {
     })();
   }, [state, contract]);
 
-  return (
-    <div style={{ maxWidth: '500px', marginBottom: '2em' }}>
-      <strong>Info:</strong>
-      <div>Contract Owner: {contractOwner}</div>
-    </div>
-  );
+  return <div>Contract Owner: {contractOwner}</div>;
 };
 
 export default ContractInfoSection;
