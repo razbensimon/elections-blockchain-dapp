@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 type Props = {};
 
-const CandidateVotes: React.FC<Props> = () => {
+const CandidateCounter: React.FC<Props> = () => {
   const { state } = useEth();
   const { contract, accounts } = state;
   const [candidatesCount, setCandidatesCount] = useState<number>();
@@ -12,7 +12,7 @@ const CandidateVotes: React.FC<Props> = () => {
     contract.methods.candidatesCount().call({ from: accounts[0] }).then(setCandidatesCount);
   }, [contract, accounts]);
 
-  return <div style={{ maxWidth: '500px' }}>Candidates Count: {candidatesCount}</div>;
+  return <div style={{ padding: '1em 0' }}>Candidates Count: {candidatesCount}</div>;
 };
 
-export default CandidateVotes;
+export default CandidateCounter;
