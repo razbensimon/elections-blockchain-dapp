@@ -3,6 +3,8 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./HitCoin.sol";
+import "./VotingToken.sol";
 
 contract Election is Ownable {
 	struct Candidate {
@@ -13,7 +15,13 @@ contract Election is Ownable {
 
 	struct Voter {
 		address voterAddress;
-		bool voted;
+		bool isVoted;
+	}
+
+	struct Election {
+		uint startTime;
+		uint endTime;
+		State state;
 	}
 
 	enum State {Created, Voting, Ended}
@@ -87,11 +95,11 @@ contract Election is Ownable {
 		//emit voteEnded(finalResult);
 	}
 
-	function vote(uint _candidateId)
+	function vote(uint _candidateId, address _hitCoinAddress)
 	public isState(State.Voting)
 	{
 		// require that they haven't voted before
-		require(!voters[msg.sender].voted, 'You already voted!');
+		require(!voters[msg.sender].isVoted, 'You already voted!');
 
 		// require a valid voter
 		require(voters[msg.sender].voterAddress != address(0), 'You have not registered as a voter');
@@ -100,11 +108,15 @@ contract Election is Ownable {
 		require(_candidateId >= 0 && _candidateId < candidatesCount, 'Unknown candidate');
 
 		// record that voter has voted
-		voters[msg.sender].voted = true;
+		voters[msg.sender].isVoted = true;
 
-		// update candidate vote Count
+		// update candidate votes count
 		candidates[_candidateId].voteCount++;
 		totalVotesCount++;
+
+		// reward the voter
+		HitCoin hitCoin = HitCoin(_hitCoinAddress);
+		hitCoin.mint(msg.sender, 10);
 
 		// trigger voted event
 		emit votedEvent(_candidateId);
