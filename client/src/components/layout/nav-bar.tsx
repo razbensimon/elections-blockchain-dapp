@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Layout as AntdLayout, Menu } from 'antd';
+import MyAddress from './my-address';
 
 const { Header } = AntdLayout;
 
@@ -26,6 +27,10 @@ export const NavBar = React.memo(() => {
           {
             key: 'admin',
             label: <NavLink to="admin">Admin</NavLink>
+          },
+          {
+            key: 'address',
+            label: <MyAddress />
           }
         ]}
       />
