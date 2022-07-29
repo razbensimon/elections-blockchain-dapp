@@ -12,7 +12,6 @@ const StartElections: React.FC<Props> = () => {
   const [form] = Form.useForm<{ endTime: number }>();
 
   const { status, statusTranslated } = useElectionsStatus();
-
   return (
     <div>
       <Title level={3}>Elections Status - {statusTranslated}</Title>

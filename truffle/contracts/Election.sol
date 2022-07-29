@@ -48,6 +48,7 @@ contract Election is Ownable {
 	// CONSTRUCTOR
 	constructor() {
 		status = Status.Created;
+		addVoter(owner());
 	}
 
 	// FUNCTIONS

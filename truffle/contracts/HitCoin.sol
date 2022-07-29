@@ -8,6 +8,6 @@ contract HitCoin is Ownable, ERC20 {
 	}
 
 	function mint(address _to, uint _amount) public {
-		_mint(_to, _amount * 10 ** 18);
+		_mint(_to, _amount * 10 ** decimals());
 	}
 }

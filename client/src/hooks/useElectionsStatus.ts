@@ -14,8 +14,14 @@ export const useElectionsStatus = () => {
   const [status, setStatus] = useState<Status>();
 
   useEffect(() => {
-    contract && contract.methods.status().call({ from: accounts[0] }).then(setStatus);
+    contract &&
+      contract.methods
+        .status()
+        .call({ from: accounts[0] })
+        .then((status: string) => {
+          setStatus(parseInt(status));
+        });
   }, [contract]);
 
-  return { status, statusTranslated: status ? Status[status] : null };
+  return { status, statusTranslated: status !== undefined ? Status[status] : null };
 };
