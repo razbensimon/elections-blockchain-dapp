@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Layout as AntdLayout, Menu } from 'antd';
 import Welcome from '../welcome/welcome';
 import ContractValidator from '../contract-validator';
@@ -11,43 +11,40 @@ type Props = {
   contract: string;
 };
 
-export const Layout: React.FC<Props> = ({ children, contract }) => {
-  const [activeTab, setActiveTab] = useState<string>('voter');
+const NavBar = React.memo(() => {
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<string>(() => location.pathname.substring(1));
+  useEffect(() => {
+    setActiveTab(location.pathname.substring(1));
+  }, [location.pathname]);
 
   return (
+    <Header>
+      <div className="logo" />
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        selectedKeys={[activeTab]}
+        items={[
+          {
+            key: 'voter',
+            label: <NavLink to="voter">Voter</NavLink>
+          },
+          {
+            key: 'admin',
+            label: <NavLink to="admin">Admin</NavLink>
+          }
+        ]}
+      />
+    </Header>
+  );
+});
+NavBar.displayName = 'NavBar';
+
+export const Layout: React.FC<Props> = ({ children, contract }) => {
+  return (
     <AntdLayout className="layout">
-      <Header>
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          selectedKeys={[activeTab]}
-          items={[
-            {
-              key: 'voter',
-              label: (
-                <NavLink to="voter">
-                  {({ isActive }) => {
-                    isActive && setActiveTab('voter');
-                    return 'Voter';
-                  }}
-                </NavLink>
-              )
-            },
-            {
-              key: 'admin',
-              label: (
-                <NavLink to="admin">
-                  {({ isActive }) => {
-                    isActive && setActiveTab('admin');
-                    return 'Admin';
-                  }}
-                </NavLink>
-              )
-            }
-          ]}
-        />
-      </Header>
+      <NavBar />
       <Content style={{ padding: '1em 3em' }}>
         <Welcome />
         <div className="site-layout-content">
