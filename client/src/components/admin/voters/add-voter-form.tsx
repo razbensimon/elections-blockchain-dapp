@@ -1,14 +1,17 @@
 import { Button, Form, Input, Typography } from 'antd';
-import useEth from '../../../contexts/EthContext/useEth';
+import useElections from '../../../contexts/ElectionsContext/useElections';
+import { Status, useElectionsStatus } from '../../../hooks/useElectionsStatus';
 
 const { Title } = Typography;
 
 type Props = {};
 
 const AddVoterForm: React.FC<Props> = () => {
-  const { state } = useEth();
+  const { state } = useElections();
   const { contract, accounts } = state;
   const [form] = Form.useForm<{ voterAddress: string }>();
+
+  const { status } = useElectionsStatus();
 
   return (
     <div>
@@ -25,7 +28,7 @@ const AddVoterForm: React.FC<Props> = () => {
             <Input />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" disabled={status !== Status.Created}>
               Add voting permission
             </Button>
           </Form.Item>

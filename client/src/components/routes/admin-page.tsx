@@ -7,6 +7,8 @@ import { Typography } from 'antd';
 import VotersCounter from '../admin/voters/voters-counter';
 import AddVoterForm from '../admin/voters/add-voter-form';
 import VotersTable from '../admin/voters/voters-table';
+import StartElections from '../admin/candidates/start-elections';
+
 const { Title } = Typography;
 
 export default function AdminPage() {
@@ -28,6 +30,8 @@ export default function AdminPage() {
         <AddVoterForm />
         <VotersTable />
       </div>
+      <Divider />
+      <StartElections />
     </div>
   );
 }

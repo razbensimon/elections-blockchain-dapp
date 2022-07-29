@@ -1,15 +1,15 @@
 import React, { useReducer, useCallback, useEffect } from 'react';
 import Web3 from 'web3';
-import EthContext from './EthContext';
-import { reducer, actions, initialState } from './state';
+import { reducer, actions, initialState, ContractContext } from './state';
 import { apiBaseUrl } from '../../config';
 
 type Props = {
+  Context: ContractContext;
   contractName: string;
   children: React.ReactNode;
 };
 
-const EthProvider: React.FC<Props> = ({ contractName, children }: Props) => {
+const ContractProvider: React.FC<Props> = ({ Context, contractName, children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const init = useCallback(async (artifact: any) => {
@@ -59,14 +59,14 @@ const EthProvider: React.FC<Props> = ({ contractName, children }: Props) => {
   }, [init, state.artifact]);
 
   return (
-    <EthContext.Provider
+    <Context.Provider
       value={{
         state,
         dispatch
       }}>
       {state ? children : 'Loading...'}
-    </EthContext.Provider>
+    </Context.Provider>
   );
 };
 
-export default EthProvider;
+export default ContractProvider;

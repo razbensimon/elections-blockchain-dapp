@@ -1,4 +1,4 @@
-import useEth from '../../../contexts/EthContext/useEth';
+import useElections from '../../../contexts/ElectionsContext/useElections';
 import { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
@@ -28,7 +28,7 @@ const columns: ColumnsType<Voter> = [
 const CandidatesTable: React.FC<Props> = () => {
   const {
     state: { contract }
-  } = useEth();
+  } = useElections();
 
   const [voters, setVoters] = useState<Voter[]>();
 

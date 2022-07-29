@@ -21,13 +21,13 @@ contract Election is Ownable {
 	struct Election {
 		uint startTime;
 		uint endTime;
-		State state;
+		Status state;
 	}
 
-	enum State {Created, Voting, Ended}
+	enum Status {Created, Voting, Ended}
 
 	// VARIABLES
-	State public state;
+	Status public status;
 	mapping(uint => address) public votersAddresses; // Store accounts that have voted
 	mapping(address => Voter) public voters; // Store accounts that have voted
 	uint public votersCount = 0;
@@ -40,19 +40,19 @@ contract Election is Ownable {
 	event voterAdded(address voter);
 
 	// MODIFIERS
-	modifier isState(State _state){
-		require(state == _state, "Can't perform in this phase of elections");
+	modifier isStatus(Status _status){
+		require(status == _status, "Can't perform in this phase of elections");
 		_;
 	}
 
 	// CONSTRUCTOR
 	constructor() {
-		state = State.Created;
+		status = Status.Created;
 	}
 
 	// FUNCTIONS
 	function addCandidate(string memory _name)
-	public  isState(State.Created)
+	public isStatus(Status.Created)
 	{
 		require(bytes(_name).length != 0);
 		candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
@@ -79,7 +79,7 @@ contract Election is Ownable {
 	}
 
 	function addVoter(address _voterAddress)
-	public onlyOwner isState(State.Created)
+	public onlyOwner isStatus(Status.Created)
 	{
 		// Do not allow address 0x0
 		require(_voterAddress != address(0));
@@ -94,22 +94,22 @@ contract Election is Ownable {
 	}
 
 	function startVote()
-	public onlyOwner isState(State.Created)
+	public onlyOwner isStatus(Status.Created)
 	{
-		state = State.Voting;
+		status = Status.Voting;
 		//emit voteStarted();
 	}
 
 	function endVote()
-	public onlyOwner isState(State.Voting)
+	public onlyOwner isStatus(Status.Voting)
 	{
-		state = State.Ended;
+		status = Status.Ended;
 		//finalResult = countResult; //move result from private countResult to public finalResult
 		//emit voteEnded(finalResult);
 	}
 
 	function vote(uint _candidateId, address _hitCoinAddress)
-	public isState(State.Voting)
+	public isStatus(Status.Voting)
 	{
 		// require that they haven't voted before
 		require(!voters[msg.sender].isVoted, 'You already voted!');

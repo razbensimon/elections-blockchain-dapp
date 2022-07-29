@@ -1,10 +1,10 @@
-import useEth from '../../contexts/EthContext/useEth';
+import useElections from '../../contexts/ElectionsContext/useElections';
 import { useEffect, useState } from 'react';
 
 type Props = {};
 
 const ContractInfoSection: React.FC<Props> = () => {
-  const { state } = useEth();
+  const { state } = useElections();
   const { contract } = state;
 
   const [contractOwner, setContractOwner] = useState<string>();

@@ -1,10 +1,10 @@
-import useEth from '../../../contexts/EthContext/useEth';
+import useElections from '../../../contexts/ElectionsContext/useElections';
 import { useEffect, useState } from 'react';
 
 type Props = {};
 
 const CandidateCounter: React.FC<Props> = () => {
-  const { state } = useEth();
+  const { state } = useElections();
   const { contract, accounts } = state;
   const [totalVotesCount, setTotalVotesCount] = useState<number>();
   const [votersCount, setVotersCount] = useState<number>();

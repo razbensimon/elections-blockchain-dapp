@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import useEth from '../../contexts/EthContext/useEth';
+import useElections from '../../contexts/ElectionsContext/useElections';
 
 const MyAddress: React.FC = () => {
   const {
     state: { accounts }
-  } = useEth();
+  } = useElections();
 
   const [account, setAccount] = useState<string>();
 

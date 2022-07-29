@@ -12,6 +12,8 @@ export type NetworkState = {
   contract: any;
 };
 
+export type ContractContext = React.Context<{ state: NetworkState; dispatch: Function }>;
+
 const initialState: NetworkState = {} as NetworkState;
 
 const reducer: React.Reducer<NetworkState, { type: string; data: NetworkState }> = (state, action) => {

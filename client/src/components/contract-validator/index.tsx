@@ -1,4 +1,4 @@
-import useEth from '../../contexts/EthContext/useEth';
+import useElections from '../../contexts/ElectionsContext/useElections';
 import NoticeNoArtifact from './NoticeNoArtifact';
 import NoticeWrongNetwork from './NoticeWrongNetwork';
 
@@ -8,7 +8,7 @@ type Props = {
 };
 
 function Demo({ children, contract }: Props) {
-  const { state } = useEth();
+  const { state } = useElections();
 
   return (
     <div className="demo">

@@ -1,26 +1,30 @@
-import { EthProvider } from './contexts/EthContext';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/layout';
-import styles from './App.module.scss';
+import { CoinContext } from './contexts/CoinContext';
+import { ElectionsContext } from './contexts/ElectionsContext';
 import AdminPage from './components/routes/admin-page';
 import VoterPage from './components/routes/voter-page';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import ContractProvider from './contexts/common/ContractProvider';
+import styles from './App.module.scss';
 
 function App() {
-  const contract = 'Election';
+  const mainContract = 'Election';
   return (
-    <EthProvider contractName={contract}>
-      <div className={styles.app}>
-        <BrowserRouter>
-          <Layout contract={contract}>
-            <Routes>
-              <Route path="voter" element={<VoterPage />} />
-              <Route path="admin" element={<AdminPage />} />
-              <Route path="*" element={<Navigate to="/voter" />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </div>
-    </EthProvider>
+    <ContractProvider Context={CoinContext} contractName={'HitCoin'}>
+      <ContractProvider Context={ElectionsContext} contractName={mainContract}>
+        <div className={styles.app}>
+          <BrowserRouter>
+            <Layout contract={mainContract}>
+              <Routes>
+                <Route path="voter" element={<VoterPage />} />
+                <Route path="admin" element={<AdminPage />} />
+                <Route path="*" element={<Navigate to="/voter" />} />
+              </Routes>
+            </Layout>
+          </BrowserRouter>
+        </div>
+      </ContractProvider>
+    </ContractProvider>
   );
 }
 
