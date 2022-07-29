@@ -21,7 +21,7 @@ export const useElectionsStatus = () => {
         .then((status: string) => {
           setStatus(parseInt(status));
         });
-  }, [contract]);
+  }, [contract, accounts]);
 
   return { status, statusTranslated: status !== undefined ? Status[status] : null };
 };
