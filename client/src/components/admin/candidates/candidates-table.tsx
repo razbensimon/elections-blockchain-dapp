@@ -1,6 +1,7 @@
 import useEth from '../../../contexts/EthContext/useEth';
 import { useEffect, useState } from 'react';
 import { Table } from 'antd';
+import { ColumnsType } from 'antd/lib/table/interface';
 
 type Candidate = {
   id: number;
@@ -10,7 +11,7 @@ type Candidate = {
 
 type Props = {};
 
-const columns = [
+const columns: ColumnsType<Candidate> = [
   {
     title: '#',
     dataIndex: 'id',
@@ -42,7 +43,7 @@ const CandidatesTable: React.FC<Props> = () => {
 
     (async () => {
       const candidates = (await contract.methods.getCandidates().call()).map(
-        ([id, name, voteCount]: [number, string, number]) =>
+        ({ id, name, voteCount }: Candidate) =>
           ({
             key: id,
             id,

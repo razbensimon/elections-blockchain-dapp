@@ -6,6 +6,7 @@ import { Divider } from 'antd';
 import { Typography } from 'antd';
 import VotersCounter from '../admin/voters/voters-counter';
 import AddVoterForm from '../admin/voters/add-voter-form';
+import VotersTable from '../admin/voters/voters-table';
 const { Title } = Typography;
 
 export default function AdminPage() {
@@ -25,6 +26,7 @@ export default function AdminPage() {
         <Title level={3}>Voters</Title>
         <VotersCounter />
         <AddVoterForm />
+        <VotersTable />
       </div>
     </div>
   );

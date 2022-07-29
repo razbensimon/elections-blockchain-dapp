@@ -28,6 +28,7 @@ contract Election is Ownable {
 
 	// VARIABLES
 	State public state;
+	mapping(uint => address) public votersAddresses; // Store accounts that have voted
 	mapping(address => Voter) public voters; // Store accounts that have voted
 	uint public votersCount = 0;
 	uint public totalVotesCount = 0;
@@ -61,8 +62,18 @@ contract Election is Ownable {
 	function getCandidates() public onlyOwner view returns (Candidate[] memory){
 		Candidate[] memory arr = new Candidate[](candidatesCount);
 		for (uint i = 0; i < candidatesCount; i++) {
-			Candidate storage Candidate = candidates[i];
-			arr[i] = Candidate;
+			Candidate storage candidate = candidates[i];
+			arr[i] = candidate;
+		}
+		return arr;
+	}
+
+	function getVoters() public onlyOwner view returns (Voter[] memory){
+		Voter[] memory arr = new Voter[](votersCount);
+		for (uint i = 0; i < votersCount; i++) {
+			address voterAddress = votersAddresses[i];
+			Voter storage voter = voters[voterAddress];
+			arr[i] = voter;
 		}
 		return arr;
 	}
@@ -75,8 +86,10 @@ contract Election is Ownable {
 		// Do not allow re-add of an existing voter
 		require(voters[_voterAddress].voterAddress == address(0));
 
+		votersAddresses[votersCount] = _voterAddress;
 		voters[_voterAddress] = Voter(_voterAddress, false);
 		votersCount++;
+
 		emit voterAdded(_voterAddress);
 	}
 
