@@ -28,7 +28,7 @@ contract Election is Ownable {
 
 	// VARIABLES
 	Status public status;
-	mapping(uint => address) public votersAddresses; // Store accounts that have voted
+	mapping(uint => address) public votersAddresses;
 	mapping(address => Voter) public voters; // Store accounts that have voted
 	uint public votersCount = 0;
 	uint public totalVotesCount = 0;
