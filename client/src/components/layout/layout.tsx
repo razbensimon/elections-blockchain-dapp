@@ -14,7 +14,7 @@ export const Layout: React.FC<Props> = ({ children, contract }) => {
   return (
     <AntdLayout style={{ minHeight: '100vh' }}>
       <NavBar />
-      <Content style={{ padding: '1em 3em' }}>
+      <Content style={{ padding: 'calc(64px + 2em) 3em 1em 3em' }}>
         <ContractValidator contract={contract}>{children}</ContractValidator>
       </Content>
       <Footer style={{ textAlign: 'center', borderTop: '1px solid lightgray' }}>
