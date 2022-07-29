@@ -1,15 +1,15 @@
 import useEth from '../../contexts/EthContext/useEth';
 import { useEffect, useState } from 'react';
 
-type Props = {};
-
 type Candidate = {
   id: number;
   name: string;
   voteCount: number;
 };
 
-const ContractInfoSection: React.FC<Props> = ({}) => {
+type Props = {};
+
+const ContractInfoSection: React.FC<Props> = () => {
   const { state } = useEth();
   const { contract, accounts } = state;
 
@@ -33,7 +33,7 @@ const ContractInfoSection: React.FC<Props> = ({}) => {
         )
       );
     })();
-  }, [contract, accounts]);
+  }, [state, contract, accounts]);
 
   return (
     <div style={{ maxWidth: '500px', marginBottom: '2em' }}>

@@ -11,9 +11,22 @@ function App() {
     <EthProvider contractName={contract}>
       <div className={styles.app}>
         <Layout contract={contract}>
-          <ContractInfoSection />
-          <CandidateVotes />
-          <AddCandidateForm />
+          <div id="admin">
+            ADMIN
+            <ContractInfoSection />
+            <hr />
+            <CandidateVotes />
+            <hr />
+            <AddCandidateForm />
+          </div>
+          <hr />
+          <div id="voter">
+            VOTER ElectionResults: DropdownVoter:
+            <hr />
+            VoteHelper:
+          </div>
+          <hr />
+          MyAddress..........
         </Layout>
         {/*<Demo />*/}
       </div>
