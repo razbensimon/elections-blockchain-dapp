@@ -18,16 +18,16 @@ contract Election is Ownable {
 		bool isVoted;
 	}
 
-	struct Election {
-		uint startTime;
-		uint endTime;
-		Status state;
-	}
-
 	enum Status {Created, Voting, Ended}
 
+	struct Elections {
+		uint startTime;
+		uint endTime;
+		Status status;
+	}
+
 	// VARIABLES
-	Status public status;
+	Elections public elections;
 	mapping(uint => address) public votersAddresses;
 	mapping(address => Voter) public voters; // Store accounts that have voted
 	uint public votersCount = 0;
@@ -41,13 +41,13 @@ contract Election is Ownable {
 
 	// MODIFIERS
 	modifier isStatus(Status _status){
-		require(status == _status, "Can't perform in this phase of elections");
+		require(elections.status == _status, "Can't perform in this phase of elections");
 		_;
 	}
 
 	// CONSTRUCTOR
 	constructor() {
-		status = Status.Created;
+		elections = Elections(0, 0, Status.Created);
 		addVoter(owner());
 	}
 
@@ -94,17 +94,21 @@ contract Election is Ownable {
 		emit voterAdded(_voterAddress);
 	}
 
-	function startVote()
+	function startVote(uint _endTime)
 	public onlyOwner isStatus(Status.Created)
 	{
-		status = Status.Voting;
+		require(_endTime > block.timestamp);
+		elections.status = Status.Voting;
+		elections.startTime = block.timestamp;
+		elections.endTime = _endTime;
+
 		//emit voteStarted();
 	}
 
 	function endVote()
 	public onlyOwner isStatus(Status.Voting)
 	{
-		status = Status.Ended;
+		elections.status = Status.Ended;
 		//finalResult = countResult; //move result from private countResult to public finalResult
 		//emit voteEnded(finalResult);
 	}

@@ -12,25 +12,29 @@ type Props = {
 const ContractProvider: React.FC<Props> = ({ Context, contractName, children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const init = useCallback(async (artifact: any) => {
-    if (artifact) {
-      const web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
-      const accounts = await web3.eth.requestAccounts();
-      const networkID = await web3.eth.net.getId();
-      const { abi } = artifact;
-      let address, contract;
-      try {
-        address = artifact.networks[networkID].address;
-        contract = new web3.eth.Contract(abi, address);
-      } catch (err) {
-        console.error(err);
+  const init = useCallback(
+    async (artifact: any) => {
+      if (artifact) {
+        const web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545');
+        const accounts = await web3.eth.requestAccounts();
+        const networkID = await web3.eth.net.getId();
+        const { abi } = artifact;
+        let address, contract;
+        try {
+          address = artifact.networks[networkID].address;
+          contract = new web3.eth.Contract(abi, address);
+          console.log(contractName, address);
+        } catch (err) {
+          console.error(err);
+        }
+        dispatch({
+          type: actions.init,
+          data: { artifact, web3, accounts, networkID, contract }
+        });
       }
-      dispatch({
-        type: actions.init,
-        data: { artifact, web3, accounts, networkID, contract }
-      });
-    }
-  }, []);
+    },
+    [contractName]
+  );
 
   useEffect(() => {
     const tryInit = async () => {
