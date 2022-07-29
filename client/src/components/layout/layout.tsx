@@ -1,45 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { Layout as AntdLayout, Menu } from 'antd';
+import React from 'react';
+import { Layout as AntdLayout } from 'antd';
 import Welcome from '../welcome/welcome';
 import ContractValidator from '../contract-validator';
+import { NavBar } from './nav-bar';
 
-const { Header, Content, Footer } = AntdLayout;
+const { Content, Footer } = AntdLayout;
 
 type Props = {
   children?: React.ReactNode;
   contract: string;
 };
-
-const NavBar = React.memo(() => {
-  const location = useLocation();
-  const [activeTab, setActiveTab] = useState<string>(() => location.pathname.substring(1));
-  useEffect(() => {
-    setActiveTab(location.pathname.substring(1));
-  }, [location.pathname]);
-
-  return (
-    <Header>
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        selectedKeys={[activeTab]}
-        items={[
-          {
-            key: 'voter',
-            label: <NavLink to="voter">Voter</NavLink>
-          },
-          {
-            key: 'admin',
-            label: <NavLink to="admin">Admin</NavLink>
-          }
-        ]}
-      />
-    </Header>
-  );
-});
-NavBar.displayName = 'NavBar';
 
 export const Layout: React.FC<Props> = ({ children, contract }) => {
   return (
