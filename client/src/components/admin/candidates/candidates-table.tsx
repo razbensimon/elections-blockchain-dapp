@@ -1,13 +1,6 @@
-import useElections from '../../../contexts/ElectionsContext/useElections';
-import { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
-
-type Candidate = {
-  id: number;
-  name: string;
-  voteCount: number;
-};
+import { Candidate, useCandidates } from '../../../hooks/useCandidates';
 
 type Props = {};
 
@@ -32,28 +25,7 @@ const columns: ColumnsType<Candidate> = [
 ];
 
 const CandidatesTable: React.FC<Props> = () => {
-  const {
-    state: { contract }
-  } = useElections();
-
-  const [candidates, setCandidates] = useState<Candidate[]>();
-
-  useEffect(() => {
-    if (!contract) return;
-
-    (async () => {
-      const candidates = (await contract.methods.getCandidates().call()).map(
-        ({ id, name, voteCount }: Candidate) =>
-          ({
-            key: id,
-            id,
-            name,
-            voteCount
-          } as Candidate)
-      );
-      setCandidates(candidates);
-    })();
-  }, [contract]);
+  const candidates = useCandidates();
 
   return (
     <div style={{ marginBottom: '2em' }}>
