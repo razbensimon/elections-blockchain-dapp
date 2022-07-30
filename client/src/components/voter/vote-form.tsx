@@ -7,7 +7,7 @@ const { Title } = Typography;
 
 type Props = {};
 
-const AddVoterForm: React.FC<Props> = () => {
+const VoteForm: React.FC<Props> = () => {
   const {
     state: { contract: coinContract }
   } = useCoin();
@@ -45,4 +45,4 @@ const AddVoterForm: React.FC<Props> = () => {
   );
 };
 
-export default AddVoterForm;
+export default VoteForm;

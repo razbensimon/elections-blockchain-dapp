@@ -3,7 +3,7 @@ import { Divider } from 'antd';
 import Welcome from '../welcome/welcome';
 import ContractInfoSection from '../admin/contract-info-section';
 import RightToVote from '../admin/voters/right-to-vote';
-import AddVoterForm from '../voter/vote-form';
+import VoteForm from '../voter/vote-form';
 import { ElectionsResults } from '../results';
 
 export default function VoterPage() {
@@ -14,7 +14,7 @@ export default function VoterPage() {
       <Divider />
       <RightToVote />
       <Divider />
-      <AddVoterForm />
+      <VoteForm />
       <Divider />
       VoteHelper:
       <Divider />
