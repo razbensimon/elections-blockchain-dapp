@@ -52,7 +52,7 @@ contract Election is Ownable {
 		elections = Elections(0, 0, Status.Created);
 		votingToken = new VotingToken();
 
-		addVoter(owner());
+		addVoter(msg.sender);
 	}
 
 	// FUNCTIONS
@@ -150,5 +150,11 @@ contract Election is Ownable {
 
 		// trigger voted event
 		emit votedEvent(_candidateId);
+	}
+
+	function hasVotingRight() public view returns (bool) {
+		require(msg.sender != address(0), 'voter address 0x0');
+
+		return votingToken.hasVotingRight(msg.sender);
 	}
 }

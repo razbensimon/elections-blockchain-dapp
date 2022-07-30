@@ -17,7 +17,8 @@ contract VotingToken is Ownable, ERC721 {
 		return newTokenId;
 	}
 
-	function hasVotingRight(address _voter) public returns (bool) {
-		return balanceOf(_voter) > 0;
+	function hasVotingRight(address _voter) public view returns (bool) {
+		uint balance = balanceOf(_voter);
+		return balance > 0;
 	}
 }
