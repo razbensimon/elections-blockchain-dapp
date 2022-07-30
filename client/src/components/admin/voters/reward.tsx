@@ -22,10 +22,14 @@ const Reward: React.FC<Props> = () => {
     if (status !== Status.Ended) return;
 
     (async () => {
-      const reward = await contract.methods.getRewardBalance(coinContract._address).call({ from: accounts[0] });
-      setReward(reward);
+      try {
+        const reward = await contract.methods.getRewardBalance(coinContract._address).call({ from: accounts[0] });
+        setReward(reward);
+      } catch (error) {
+        console.error('getRewardBalance', error);
+      }
     })();
-  }, [contract, accounts, status]);
+  }, [coinContract, contract, accounts, status]);
 
   return (
     <>

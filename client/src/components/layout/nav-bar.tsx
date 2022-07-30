@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Layout as AntdLayout, Menu } from 'antd';
 import MyAddress from './my-address';
+import { useAdmin } from '../../hooks/useAdmin';
 
 const { Header } = AntdLayout;
 
 export const NavBar = React.memo(() => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<string>(() => location.pathname.substring(1));
+
+  const { isAdmin } = useAdmin();
+
   useEffect(() => {
     setActiveTab(location.pathname.substring(1));
   }, [location.pathname]);
@@ -32,21 +36,25 @@ export const NavBar = React.memo(() => {
         theme="dark"
         mode="horizontal"
         selectedKeys={[activeTab]}
-        items={[
-          {
-            key: 'voter',
-            label: <NavLink to="voter">Voter</NavLink>
-          },
-          {
-            key: 'admin',
-            label: <NavLink to="admin">Admin</NavLink>
-          },
-          {
-            key: 'address',
-            label: <MyAddress />,
-            disabled: true
-          }
-        ]}
+        items={
+          [
+            {
+              key: 'voter',
+              label: <NavLink to="voter">Voter</NavLink>
+            },
+            isAdmin
+              ? {
+                  key: 'admin',
+                  label: <NavLink to="admin">Admin</NavLink>
+                }
+              : null,
+            {
+              key: 'address',
+              label: <MyAddress />,
+              disabled: true
+            }
+          ].filter(Boolean) as any
+        }
       />
     </Header>
   );

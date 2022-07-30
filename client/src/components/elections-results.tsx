@@ -3,7 +3,6 @@ import { ElectionsCountdown } from './elections-countdown';
 import { useElections } from '../contexts/ElectionsContext';
 import { Status, useElectionsStatus } from '../hooks/useElectionsStatus';
 import { Candidate } from '../hooks/useCandidates';
-import CandidatesTable from './admin/candidates/candidates-table';
 
 type Props = {};
 
