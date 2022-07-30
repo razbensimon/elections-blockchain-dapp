@@ -11,16 +11,13 @@ contract VotingToken is Ownable, ERC721 {
 	}
 
 	function createToken(address _voter) public onlyOwner returns (uint256) {
-		uint newItemId = tokenCounter;
-		_safeMint(_voter, newItemId);
+		uint newTokenId = tokenCounter;
+		_safeMint(_voter, newTokenId);
 		tokenCounter = tokenCounter + 1;
-		return newItemId;
+		return newTokenId;
 	}
 
 	function hasVotingRight(address _voter) public returns (bool) {
-		if (balanceOf(_voter) > 0) {
-			return true;
-		}
-		return false;
+		return balanceOf(_voter) > 0;
 	}
 }

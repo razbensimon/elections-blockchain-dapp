@@ -11,8 +11,6 @@ export const ElectionsResults: React.FC<Props> = () => {
 
   const { endTime } = useElectionsStatus();
 
-  console.log('endTime Res', endTime);
-
   const onComplete = useCallback(async () => {
     await contract.methods.endVote().send({ from: accounts[0] });
   }, [contract, accounts]);

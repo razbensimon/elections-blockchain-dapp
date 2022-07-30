@@ -45,9 +45,13 @@ contract Election is Ownable {
 		_;
 	}
 
+	VotingToken public votingToken;
+
 	// CONSTRUCTOR
 	constructor() {
 		elections = Elections(0, 0, Status.Created);
+		votingToken = new VotingToken();
+
 		addVoter(owner());
 	}
 
@@ -84,6 +88,7 @@ contract Election is Ownable {
 	{
 		// Do not allow address 0x0
 		require(_voterAddress != address(0));
+
 		// Do not allow re-add of an existing voter
 		require(voters[_voterAddress].voterAddress == address(0));
 
@@ -91,16 +96,18 @@ contract Election is Ownable {
 		voters[_voterAddress] = Voter(_voterAddress, false);
 		votersCount++;
 
+		votingToken.createToken(_voterAddress);
+
 		emit voterAdded(_voterAddress);
 	}
 
 	function startVote(uint256 _endTime)
 	public onlyOwner isStatus(Status.Created)
 	{
-		uint256 now = block.timestamp;
-		require(_endTime > now);
+		uint256 nowInSeconds = block.timestamp;
+		require(_endTime > nowInSeconds);
 		elections.status = Status.Voting;
-		elections.startTime = now;
+		elections.startTime = nowInSeconds;
 		elections.endTime = _endTime;
 
 		//emit voteStarted();
@@ -117,13 +124,17 @@ contract Election is Ownable {
 	function vote(uint _candidateId, address _hitCoinAddress)
 	public isStatus(Status.Voting)
 	{
+		// require a valid voter
+		require(msg.sender != address(0), 'voter address 0x0');
+		require(voters[msg.sender].voterAddress != address(0), 'no a valid voter');
+
+		// require NFT token represents right to vote
+		require(votingToken.hasVotingRight(msg.sender));
+
 		// require that they haven't voted before
 		require(!voters[msg.sender].isVoted, 'You already voted!');
 
-		// require a valid voter
-		require(voters[msg.sender].voterAddress != address(0), 'You have not registered as a voter');
-
-		// require a valid candidate
+		// require a valid candidate to vote for
 		require(_candidateId >= 0 && _candidateId < candidatesCount, 'Unknown candidate');
 
 		// record that voter has voted

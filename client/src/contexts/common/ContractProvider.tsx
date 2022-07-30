@@ -20,13 +20,11 @@ const ContractProvider: React.FC<Props> = ({ Context, contractName, children }: 
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
         let address, contract;
-        try {
-          address = artifact.networks[networkID].address;
-          contract = new web3.eth.Contract(abi, address);
-          console.log(contractName, address);
-        } catch (err) {
-          console.error(err);
-        }
+
+        address = artifact.networks[networkID].address;
+        contract = new web3.eth.Contract(abi, address);
+        console.log(contractName, address);
+
         dispatch({
           type: actions.init,
           data: { artifact, web3, accounts, networkID, contract }
@@ -38,29 +36,40 @@ const ContractProvider: React.FC<Props> = ({ Context, contractName, children }: 
 
   useEffect(() => {
     const tryInit = async () => {
+      let artifact;
       try {
         const response = await fetch(`${apiBaseUrl}/${contractName}.json`);
-        const artifact = await response.json();
+        artifact = await response.json();
+      } catch (err) {
+        console.error('Error on fetch contract', err);
+      }
+
+      try {
         await init(artifact);
       } catch (err) {
-        console.error(err);
+        console.error('Error init contract', err);
       }
     };
 
-    tryInit();
+    tryInit().catch(console.error);
   }, [init, contractName]);
 
   useEffect(() => {
     const events = ['chainChanged', 'accountsChanged'];
-    const handleChange = () => {
-      init(state.artifact);
+    const handleChange = async () => {
+      await init(state.artifact);
     };
 
-    events.forEach(e => window.ethereum!.on(e, handleChange));
+    events.forEach(eventName =>
+      window.ethereum!.on(eventName, async () => {
+        console.debug(contractName, 'raised event: ', eventName);
+        await handleChange;
+      })
+    );
     return () => {
       events.forEach(e => window.ethereum!.removeListener(e, handleChange));
     };
-  }, [init, state.artifact]);
+  }, [init, state.artifact, contractName]);
 
   return (
     <Context.Provider
