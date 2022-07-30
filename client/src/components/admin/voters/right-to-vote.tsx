@@ -5,8 +5,8 @@ import { useVotingToken } from '../../../contexts/VotingTokenContext';
 type Props = {};
 
 const RightToVote: React.FC<Props> = () => {
-  const fuck = useVotingToken();
-  const { contract, accounts } = fuck?.state || {};
+  const { state } = useVotingToken();
+  const { contract, accounts } = state;
 
   const [rightToVote, setRightToVote] = useState<boolean>();
 
@@ -19,14 +19,10 @@ const RightToVote: React.FC<Props> = () => {
     })();
   }, [contract, accounts]);
 
-  return fuck ? (
-    rightToVote ? (
-      <div>You have the right to vote on those elections! - NFT token: {rightToVote}</div>
-    ) : (
-      <div>You do NOT have the right to vote on those elections!</div>
-    )
+  return rightToVote ? (
+    <div>You have the right to vote on those elections! - NFT token: {rightToVote}</div>
   ) : (
-    <div>Loading right...</div>
+    <div style={{ color: 'red' }}>You do NOT have the right to vote on those elections!</div>
   );
 };
 
