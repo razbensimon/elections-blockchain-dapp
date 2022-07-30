@@ -6,8 +6,11 @@ import RightToVote from '../admin/voters/right-to-vote';
 import VoteForm from '../voter/vote-form';
 import { ElectionsResults } from '../elections-results';
 import Reward from '../admin/voters/reward';
+import CandidatesTable from '../admin/candidates/candidates-table';
+import { Status, useElectionsStatus } from '../../hooks/useElectionsStatus';
 
 export default function VoterPage() {
+  const { status } = useElectionsStatus();
   return (
     <div id="voter">
       <ContractInfoSection />
@@ -21,6 +24,7 @@ export default function VoterPage() {
       VoteHelper:
       <Divider />
       <ElectionsResults />
+      {status === Status.Ended ? <CandidatesTable /> : null}
     </div>
   );
 }
