@@ -4,7 +4,7 @@ import Welcome from '../welcome/welcome';
 import ContractInfoSection from '../admin/contract-info-section';
 import RightToVote from '../admin/voters/right-to-vote';
 import VoteForm from '../voter/vote-form';
-import { ElectionsResults } from '../results';
+import { ElectionsResults } from '../elections-results';
 import Reward from '../admin/voters/reward';
 
 export default function VoterPage() {

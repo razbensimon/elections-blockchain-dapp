@@ -158,7 +158,7 @@ contract Election is Ownable {
 		return votingToken.hasVotingRight(msg.sender);
 	}
 
-	function getRewardBalance(address _hitCoinAddress) public view returns (uint) {
+	function getRewardBalance(address _hitCoinAddress) public view isStatus(Status.Ended) returns (uint) {
 		require(msg.sender != address(0), 'voter address 0x0');
 
 		// require voting
@@ -166,5 +166,19 @@ contract Election is Ownable {
 
 		HitCoin hitCoin = HitCoin(_hitCoinAddress);
 		return hitCoin.balanceOf(msg.sender);
+	}
+
+	function getWinner() public view isStatus(Status.Ended) returns (Candidate memory) {
+		require(msg.sender != address(0), 'voter address 0x0');
+
+		Candidate memory winner;
+		winner = candidates[0];
+
+		for (uint i = 1; i < candidatesCount; i++) {
+			if(candidates[i].voteCount > winner.voteCount){
+				winner = candidates[i];
+			}
+		}
+		return winner;
 	}
 }

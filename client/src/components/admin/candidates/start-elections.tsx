@@ -1,7 +1,7 @@
 import { Button, Form, Typography, DatePicker } from 'antd';
 import useElections from '../../../contexts/ElectionsContext/useElections';
 import { useElectionsStatus, Status } from '../../../hooks/useElectionsStatus';
-import { ElectionsResults } from '../../results';
+import { ElectionsResults } from '../../elections-results';
 
 const { Title } = Typography;
 
