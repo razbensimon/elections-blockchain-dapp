@@ -12,6 +12,7 @@ export const useAdmin = () => {
     if (!contract) return;
 
     (async () => {
+      setIsAdmin(false);
       const ownerAdmin = await contract.methods.owner().call();
       if (accounts[0] === ownerAdmin) {
         setIsAdmin(true);

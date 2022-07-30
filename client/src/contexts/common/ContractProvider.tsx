@@ -63,7 +63,7 @@ const ContractProvider: React.FC<Props> = ({ Context, contractName, children }: 
     events.forEach(eventName =>
       window.ethereum!.on(eventName, async () => {
         console.debug(contractName, 'raised event: ', eventName);
-        await handleChange;
+        await handleChange();
       })
     );
     return () => {
