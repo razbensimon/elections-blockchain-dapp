@@ -10,12 +10,12 @@ import styles from './App.module.scss';
 import { useAdmin } from './hooks/useAdmin';
 
 function AppRoutes() {
-  const { isAdmin } = useAdmin();
+  const { isAdmin, isLoading } = useAdmin();
   return (
     <Routes>
       <Route path="voter" element={<VoterPage />} />
       {isAdmin ? <Route path="admin" element={<AdminPage />} /> : null}
-      <Route path="*" element={<Navigate to="/voter" />} />
+      {!isLoading && <Route path="*" element={<Navigate to={`/${isAdmin ? 'admin' : 'voter'}`} />} />}
     </Routes>
   );
 }

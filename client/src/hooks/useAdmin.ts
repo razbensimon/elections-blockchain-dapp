@@ -7,18 +7,26 @@ export const useAdmin = () => {
   } = useElections();
 
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (!contract) return;
 
     (async () => {
-      setIsAdmin(false);
-      const ownerAdmin = await contract.methods.owner().call();
-      if (accounts[0] === ownerAdmin) {
-        setIsAdmin(true);
+      try {
+        // defaults reset first
+        setIsLoading(true);
+        setIsAdmin(false);
+
+        const ownerAdmin = await contract.methods.owner().call();
+        if (accounts[0] === ownerAdmin) {
+          setIsAdmin(true);
+        }
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, [contract, accounts]);
 
-  return { isAdmin };
+  return { isAdmin, isLoading };
 };
