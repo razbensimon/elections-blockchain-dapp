@@ -5,6 +5,10 @@ export type Candidate = {
   id: number;
   name: string;
   voteCount: number;
+
+  politicalSide?: string;
+  religiousParty?: string;
+  expertise?: string;
 };
 
 export const useCandidates = () => {
@@ -19,12 +23,15 @@ export const useCandidates = () => {
 
     (async () => {
       const candidates = (await contract.methods.getCandidates().call()).map(
-        ({ id, name, voteCount }: Candidate) =>
+        ({ id, name, voteCount, expertise, religiousParty, politicalSide }: Candidate) =>
           ({
             key: id,
             id,
             name,
-            voteCount
+            voteCount,
+            expertise,
+            religiousParty,
+            politicalSide
           } as Candidate)
       );
       setCandidates(candidates);

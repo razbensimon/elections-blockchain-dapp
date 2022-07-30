@@ -1,8 +1,9 @@
 import { Button, Form, Select, Typography } from 'antd';
 import { useElections } from '../../contexts/ElectionsContext';
 import { useCoin } from '../../contexts/CoinContext';
-import { useElectionsStatus, Status } from '../../hooks/useElectionsStatus';
+import { Status, useElectionsStatus } from '../../hooks/useElectionsStatus';
 import { useCandidates } from '../../hooks/useCandidates';
+import { HelpVoteForm } from '../common/questions-form-fields';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -24,8 +25,11 @@ const VoteForm: React.FC<Props> = () => {
 
   return (
     <div>
-      <Title level={3}>Vote here:</Title>
+      <Title level={3}>Voting:</Title>
 
+      <HelpVoteForm candidates={candidates} />
+
+      <Title level={5}>Vote here:</Title>
       <div style={{ maxWidth: '500px' }}>
         <Form
           form={form}
@@ -44,7 +48,6 @@ const VoteForm: React.FC<Props> = () => {
               })}
             </Select>
           </Form.Item>
-
           <Form.Item>
             <Button type="primary" htmlType="submit" disabled={status !== Status.Voting}>
               Vote!

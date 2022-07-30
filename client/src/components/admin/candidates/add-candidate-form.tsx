@@ -1,6 +1,7 @@
 import { Button, Form, Input, Typography } from 'antd';
 import useElections from '../../../contexts/ElectionsContext/useElections';
 import { Status, useElectionsStatus } from '../../../hooks/useElectionsStatus';
+import QuestionsFormFields from '../../common/questions-form-fields';
 
 const { Title } = Typography;
 
@@ -9,7 +10,12 @@ type Props = {};
 const AddCandidateForm: React.FC<Props> = () => {
   const { state } = useElections();
   const { contract, accounts } = state;
-  const [form] = Form.useForm<{ candidateName: string }>();
+  const [form] = Form.useForm<{
+    candidateName: string;
+    politicalSide?: string;
+    religiousParty?: string;
+    expertise?: string;
+  }>();
 
   const { status } = useElectionsStatus();
 
@@ -22,11 +28,14 @@ const AddCandidateForm: React.FC<Props> = () => {
           form={form}
           name="control-hooks"
           onFinish={async values => {
-            await contract.methods.addCandidate(values.candidateName).send({ from: accounts[0] });
+            await contract.methods
+              .addCandidate(values.candidateName, values.politicalSide, values.religiousParty, values.expertise)
+              .send({ from: accounts[0] });
           }}>
           <Form.Item name="candidateName" label="Candidate name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
+          <QuestionsFormFields />
           <Form.Item>
             <Button type="primary" htmlType="submit" disabled={status !== Status.Created}>
               Add

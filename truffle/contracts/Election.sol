@@ -11,6 +11,10 @@ contract Election is Ownable {
 		uint id;
 		string name;
 		uint voteCount;
+
+		string politicalSide;
+		string religiousParty;
+		string expertise;
 	}
 
 	struct Voter {
@@ -34,6 +38,7 @@ contract Election is Ownable {
 	uint public totalVotesCount = 0;
 	mapping(uint => Candidate) public candidates; // Store candidates and their votes count
 	uint public candidatesCount = 0;
+	VotingToken public votingToken;
 
 	// EVENTS
 	event votedEvent(uint indexed _candidateId);
@@ -45,7 +50,6 @@ contract Election is Ownable {
 		_;
 	}
 
-	VotingToken public votingToken;
 
 	// CONSTRUCTOR
 	constructor() {
@@ -56,11 +60,21 @@ contract Election is Ownable {
 	}
 
 	// FUNCTIONS
-	function addCandidate(string memory _name)
-	public onlyOwner isStatus(Status.Created)
+	function addCandidate(
+		string memory _name,
+		string memory _politicalSide,
+		string memory _religiousParty,
+		string memory _expertise) public onlyOwner isStatus(Status.Created)
 	{
 		require(bytes(_name).length != 0);
-		candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+		candidates[candidatesCount] = Candidate(
+			candidatesCount,
+			_name,
+			0,
+			_politicalSide,
+			_religiousParty,
+			_expertise);
+
 		candidatesCount++;
 	}
 
@@ -175,7 +189,7 @@ contract Election is Ownable {
 		winner = candidates[0];
 
 		for (uint i = 1; i < candidatesCount; i++) {
-			if(candidates[i].voteCount > winner.voteCount){
+			if (candidates[i].voteCount > winner.voteCount) {
 				winner = candidates[i];
 			}
 		}
