@@ -57,7 +57,7 @@ contract Election is Ownable {
 
 	// FUNCTIONS
 	function addCandidate(string memory _name)
-	public isStatus(Status.Created)
+	public onlyOwner isStatus(Status.Created)
 	{
 		require(bytes(_name).length != 0);
 		candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
