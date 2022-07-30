@@ -13,9 +13,22 @@ export const NavBar = React.memo(() => {
   }, [location.pathname]);
 
   return (
-    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-      <div className="logo" />
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex' }}>
+      <div
+        className="logo"
+        style={{
+          background: 'rgba(255, 255, 255, 0.2)',
+          color: 'white',
+          width: '120px',
+          margin: '16px 24px 16px 0',
+          flex: 'none',
+          alignSelf: 'center',
+          textAlign: 'center'
+        }}>
+        Elections
+      </div>
       <Menu
+        style={{ flex: 1 }}
         theme="dark"
         mode="horizontal"
         selectedKeys={[activeTab]}
@@ -30,7 +43,8 @@ export const NavBar = React.memo(() => {
           },
           {
             key: 'address',
-            label: <MyAddress />
+            label: <MyAddress />,
+            disabled: true
           }
         ]}
       />
