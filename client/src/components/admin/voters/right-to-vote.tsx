@@ -13,7 +13,6 @@ const RightToVote: React.FC<Props> = () => {
     if (!contract) return;
     (async () => {
       const hasRight = await contract.methods.hasVotingRight().call({ from: accounts[0] });
-      console.log(hasRight, contract.methods);
       setRightToVote(hasRight);
     })();
   }, [contract, accounts]);
