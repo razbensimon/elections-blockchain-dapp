@@ -21,8 +21,8 @@ contract Election is Ownable {
 	enum Status {Created, Voting, Ended}
 
 	struct Elections {
-		uint startTime;
-		uint endTime;
+		uint256 startTime;
+		uint256 endTime;
 		Status status;
 	}
 
@@ -94,12 +94,13 @@ contract Election is Ownable {
 		emit voterAdded(_voterAddress);
 	}
 
-	function startVote(uint _endTime)
+	function startVote(uint256 _endTime)
 	public onlyOwner isStatus(Status.Created)
 	{
-		require(_endTime > block.timestamp);
+		uint256 now = block.timestamp;
+		require(_endTime > now);
 		elections.status = Status.Voting;
-		elections.startTime = block.timestamp;
+		elections.startTime = now;
 		elections.endTime = _endTime;
 
 		//emit voteStarted();

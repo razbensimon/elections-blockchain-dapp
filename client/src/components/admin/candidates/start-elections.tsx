@@ -33,13 +33,7 @@ const StartElections: React.FC<Props> = () => {
               await contract.methods.startVote(solidityEndTime).send({ from: accounts[0] });
             }}>
             <Form.Item name="endTime" label="End Time" {...config}>
-              <DatePicker
-                showTime
-                format="YYYY-MM-DD HH:mm:ss"
-                onChange={value => {
-                  //value && setTimer((value as any).toDate() as Date); // from moment type
-                }}
-              />
+              <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" disabled={status !== Status.Created}>
