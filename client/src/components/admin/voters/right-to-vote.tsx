@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useElections } from '../../../contexts/ElectionsContext';
+import { Status, useElectionsStatus } from '../../../hooks/useElectionsStatus';
 
 type Props = {};
 
@@ -7,6 +8,7 @@ const RightToVote: React.FC<Props> = () => {
   const { state } = useElections();
   const { contract, accounts } = state;
 
+  const { status } = useElectionsStatus();
   const [rightToVote, setRightToVote] = useState<boolean>();
 
   useEffect(() => {
@@ -17,10 +19,18 @@ const RightToVote: React.FC<Props> = () => {
     })();
   }, [contract, accounts]);
 
-  return rightToVote ? (
-    <div style={{ color: 'green' }}>You have the right to vote in those elections!</div>
-  ) : (
-    <div style={{ color: 'red' }}>You do NOT have the right to vote on those elections!</div>
+  return (
+    <div>
+      {rightToVote ? (
+        <div style={{ color: 'green' }}>You have the right to vote in those elections!</div>
+      ) : (
+        <div style={{ color: 'red' }}>You do NOT have the right to vote on those elections!</div>
+      )}
+
+      <div style={{ paddingTop: '1em' }}>
+        Are the elections open for voting? - {status === Status.Voting ? 'Yes' : 'No'}
+      </div>
+    </div>
   );
 };
 

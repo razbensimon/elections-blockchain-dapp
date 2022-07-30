@@ -34,10 +34,7 @@ const VoteForm: React.FC<Props> = () => {
             await contract.methods.vote(Number(values.candidateId), coinContract._address).send({ from: accounts[0] });
           }}>
           <Form.Item name="candidateId" label="Candidate" rules={[{ required: true }]}>
-            <Select
-              placeholder="Select your candidate!"
-              // onChange={onGenderChange}
-              allowClear>
+            <Select placeholder="Select your candidate!" allowClear>
               {candidates?.map(candidate => {
                 return (
                   <Option key={candidate.id} value={candidate.id.toString()}>
