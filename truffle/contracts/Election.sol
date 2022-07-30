@@ -157,4 +157,14 @@ contract Election is Ownable {
 
 		return votingToken.hasVotingRight(msg.sender);
 	}
+
+	function getRewardBalance(address _hitCoinAddress) public view returns (uint) {
+		require(msg.sender != address(0), 'voter address 0x0');
+
+		// require voting
+		require(voters[msg.sender].isVoted, 'You didnt vote!');
+
+		HitCoin hitCoin = HitCoin(_hitCoinAddress);
+		return hitCoin.balanceOf(msg.sender);
+	}
 }
