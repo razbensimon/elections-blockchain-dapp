@@ -25,8 +25,8 @@ const Reward: React.FC<Props> = () => {
       try {
         const reward = await contract.methods.getRewardBalance(coinContract._address).call({ from: accounts[0] });
         setReward(reward);
-      } catch (error) {
-        console.error('getRewardBalance', error);
+      } catch (error: any) {
+        console.log('getRewardBalance failed to retrieve, probably you didnt vote');
       }
     })();
   }, [coinContract, contract, accounts, status]);
