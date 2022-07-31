@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./RazCoin.sol";
-import "./VotingToken.sol";
+import "./RightToVote.sol";
 
 contract Election is Ownable {
 	struct Candidate {
@@ -38,7 +38,7 @@ contract Election is Ownable {
 	uint public totalVotesCount = 0;
 	mapping(uint => Candidate) public candidates; // Store candidates and their votes count
 	uint public candidatesCount = 0;
-	VotingToken public votingToken;
+	RightToVote public rightToVote;
 
 	// EVENTS
 	event votedEvent(uint indexed _candidateId);
@@ -54,7 +54,7 @@ contract Election is Ownable {
 	// CONSTRUCTOR
 	constructor() {
 		elections = Elections(0, 0, Status.Created);
-		votingToken = new VotingToken();
+		rightToVote = new RightToVote();
 
 		addVoter(msg.sender);
 	}
@@ -110,7 +110,7 @@ contract Election is Ownable {
 		voters[_voterAddress] = Voter(_voterAddress, false);
 		votersCount++;
 
-		votingToken.giveRightToVote(_voterAddress);
+		rightToVote.giveRightToVote(_voterAddress);
 
 		emit voterAdded(_voterAddress);
 	}
@@ -143,7 +143,7 @@ contract Election is Ownable {
 		require(voters[msg.sender].voterAddress != address(0), 'no a valid voter');
 
 		// require NFT token represents right to vote
-		require(votingToken.hasVotingRight(msg.sender));
+		require(rightToVote.hasVotingRight(msg.sender));
 
 		// require that they haven't voted before
 		require(!voters[msg.sender].isVoted, 'You already voted!');
@@ -169,7 +169,7 @@ contract Election is Ownable {
 	function hasVotingRight() public view returns (bool) {
 		require(msg.sender != address(0), 'voter address 0x0');
 
-		return votingToken.hasVotingRight(msg.sender);
+		return rightToVote.hasVotingRight(msg.sender);
 	}
 
 	function getRewardBalance(address _coinContractAddress) public view isStatus(Status.Ended) returns (uint) {

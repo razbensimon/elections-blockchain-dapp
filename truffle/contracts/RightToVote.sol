@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 // NOTE: 'SafeMath' is not needed starting with Solidity 0.8 :)
 
-contract VotingToken is Ownable, ERC721 {
+contract RightToVote is Ownable, ERC721 {
 	uint256 public tokenCounter;
 
 	constructor() Ownable() ERC721("RightToVote", "RTV"){

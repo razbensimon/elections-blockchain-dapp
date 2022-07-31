@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/layout';
 import { CoinContext } from './contexts/CoinContext';
 import { ElectionsContext } from './contexts/ElectionsContext';
-import { VotingTokenContext } from './contexts/VotingTokenContext';
+import { RightToVoteContext } from './contexts/RightToVoteContext';
 import AdminPage from './components/routes/admin-page';
 import VoterPage from './components/routes/voter-page';
 import ContractProvider from './contexts/common/ContractProvider';
@@ -24,7 +24,7 @@ function App() {
   const mainContract = 'Election';
   return (
     <ContractProvider Context={CoinContext} contractName={'RazCoin'}>
-      <ContractProvider Context={VotingTokenContext} contractName={'VotingToken'}>
+      <ContractProvider Context={RightToVoteContext} contractName={'RightToVote'}>
         <ContractProvider Context={ElectionsContext} contractName={mainContract}>
           <div className={styles.app}>
             <BrowserRouter>

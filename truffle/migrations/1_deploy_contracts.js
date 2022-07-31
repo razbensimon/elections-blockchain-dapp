@@ -1,9 +1,9 @@
 const RazCoin = artifacts.require('./RazCoin.sol');
-const VotingToken = artifacts.require('./VotingToken.sol');
+const RightToVote = artifacts.require('./RightToVote.sol');
 const Election = artifacts.require('./Election.sol');
 
 module.exports = function (deployer) {
   deployer.deploy(RazCoin);
-  deployer.deploy(VotingToken);
+  deployer.deploy(RightToVote);
   deployer.deploy(Election);
 };
