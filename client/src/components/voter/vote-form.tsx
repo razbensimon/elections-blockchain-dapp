@@ -3,7 +3,7 @@ import { useElections } from '../../contexts/ElectionsContext';
 import { useCoin } from '../../contexts/CoinContext';
 import { Status, useElectionsStatus } from '../../hooks/useElectionsStatus';
 import { useCandidates } from '../../hooks/useCandidates';
-import { HelpVoteForm } from '../common/questions-form-fields';
+import { HelpVoteForm } from './help-vote-form';
 
 const { Title } = Typography;
 const { Option } = Select;
