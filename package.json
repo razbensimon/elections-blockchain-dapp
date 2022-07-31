@@ -20,9 +20,11 @@
   "devDependencies": {
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "prettier-plugin-solidity": "^1.0.0-dev.23"
   },
   "lint-staged": {
-    "{client,truffle}/**/*.{js,jsx,ts,tsx,css,scss}": "prettier --write"
+    "{client,truffle}/**/*.{js,jsx,ts,tsx,css,scss}": "prettier --write",
+    "{contracts,truffle}/**/*.sol": "prettier --write"
   }
 }
