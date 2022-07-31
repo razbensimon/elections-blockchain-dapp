@@ -3,7 +3,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./HitCoin.sol";
+import "./RazCoin.sol";
 import "./VotingToken.sol";
 
 contract Election is Ownable {
@@ -135,7 +135,7 @@ contract Election is Ownable {
 		//emit voteEnded(finalResult);
 	}
 
-	function vote(uint _candidateId, address _hitCoinAddress)
+	function vote(uint _candidateId, address _coinContractAddress)
 	public isStatus(Status.Voting)
 	{
 		// require a valid voter
@@ -159,8 +159,8 @@ contract Election is Ownable {
 		totalVotesCount++;
 
 		// reward the voter
-		HitCoin hitCoin = HitCoin(_hitCoinAddress);
-		hitCoin.mint(msg.sender, 10);
+		RazCoin coinContract = RazCoin(_coinContractAddress);
+		coinContract.mint(msg.sender, 10);
 
 		// trigger voted event
 		emit votedEvent(_candidateId);
@@ -172,14 +172,14 @@ contract Election is Ownable {
 		return votingToken.hasVotingRight(msg.sender);
 	}
 
-	function getRewardBalance(address _hitCoinAddress) public view isStatus(Status.Ended) returns (uint) {
+	function getRewardBalance(address _coinContractAddress) public view isStatus(Status.Ended) returns (uint) {
 		require(msg.sender != address(0), 'voter address 0x0');
 
 		// require voting
 		require(voters[msg.sender].isVoted, 'You didnt vote!');
 
-		HitCoin hitCoin = HitCoin(_hitCoinAddress);
-		return hitCoin.balanceOf(msg.sender);
+		RazCoin coinContract = RazCoin(_coinContractAddress);
+		return coinContract.balanceOf(msg.sender);
 	}
 
 	function getWinner() public view isStatus(Status.Ended) returns (Candidate memory) {

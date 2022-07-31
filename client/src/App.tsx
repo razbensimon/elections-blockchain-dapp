@@ -23,7 +23,7 @@ function AppRoutes() {
 function App() {
   const mainContract = 'Election';
   return (
-    <ContractProvider Context={CoinContext} contractName={'HitCoin'}>
+    <ContractProvider Context={CoinContext} contractName={'RazCoin'}>
       <ContractProvider Context={VotingTokenContext} contractName={'VotingToken'}>
         <ContractProvider Context={ElectionsContext} contractName={mainContract}>
           <div className={styles.app}>

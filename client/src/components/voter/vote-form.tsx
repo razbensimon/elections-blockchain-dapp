@@ -19,7 +19,7 @@ const VoteForm: React.FC<Props> = () => {
   const { contract, accounts } = state;
 
   const { status } = useElectionsStatus();
-  const [form] = Form.useForm<{ candidateId: number; hitCoinAddress: string }>();
+  const [form] = Form.useForm<{ candidateId: number; coinContractAddress: string }>();
 
   const candidates = useCandidates();
 
