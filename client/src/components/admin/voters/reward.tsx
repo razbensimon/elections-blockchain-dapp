@@ -33,7 +33,7 @@ const Reward: React.FC<Props> = () => {
 
   return (
     <>
-      {reward ? (
+      {reward !== undefined ? (
         <>
           <div style={{ paddingTop: '1em' }}>
             You got rewarded with <span style={{ color: 'purple', fontWeight: 'bold' }}>{reward / 10 ** 18}</span> ERC20

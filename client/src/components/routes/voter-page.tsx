@@ -19,9 +19,7 @@ export default function VoterPage() {
       <RightToVote />
       <Divider />
       <VoteForm />
-      <Divider />
       <Reward />
-      VoteHelper:
       <Divider />
       <ElectionsResults />
       {status === Status.Ended ? <CandidatesTable /> : null}
