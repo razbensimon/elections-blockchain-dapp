@@ -1,8 +1,8 @@
 import { Button, Form, Select, Typography } from 'antd';
-import { useElections } from '../../contexts/ElectionsContext';
-import { useCoin } from '../../contexts/CoinContext';
-import { Status, useElectionsStatus } from '../../hooks/useElectionsStatus';
-import { useCandidates } from '../../hooks/useCandidates';
+import { useElections } from '../../contexts/elections-context';
+import { useCoin } from '../../contexts/coin-context';
+import { Status, useElectionsStatus } from '../../hooks/use-elections-status';
+import { useCandidates } from '../../hooks/use-candidates';
 import { HelpVoteForm } from './help-vote-form';
 
 const { Title } = Typography;

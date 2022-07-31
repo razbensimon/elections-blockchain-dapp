@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import RightToVoteContext from './RightToVoteContext';
+import RightToVoteContext from './right-to-vote-context';
 
 const useRightToVote = () => useContext(RightToVoteContext);
 

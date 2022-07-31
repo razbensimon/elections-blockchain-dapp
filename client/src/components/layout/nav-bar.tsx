@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Layout as AntdLayout, Menu } from 'antd';
 import MyAddress from './my-address';
-import { useAdmin } from '../../hooks/useAdmin';
+import { useAdmin } from '../../hooks/use-admin';
 
 const { Header } = AntdLayout;
 

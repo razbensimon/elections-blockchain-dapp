@@ -1,4 +1,4 @@
-import useElections from '../../contexts/ElectionsContext/useElections';
+import useElections from '../../contexts/elections-context/use-elections';
 import { useEffect, useState } from 'react';
 
 type Props = {};

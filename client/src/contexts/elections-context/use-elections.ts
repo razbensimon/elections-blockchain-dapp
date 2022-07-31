@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import ElectionsContext from './ElectionsContext';
+import ElectionsContext from './elections-context';
 
 const useElections = () => useContext(ElectionsContext);
 

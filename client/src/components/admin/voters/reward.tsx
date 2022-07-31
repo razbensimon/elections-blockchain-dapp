@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useElections } from '../../../contexts/ElectionsContext';
-import { Status, useElectionsStatus } from '../../../hooks/useElectionsStatus';
-import { useCoin } from '../../../contexts/CoinContext';
+import { useElections } from '../../../contexts/elections-context';
+import { Status, useElectionsStatus } from '../../../hooks/use-elections-status';
+import { useCoin } from '../../../contexts/coin-context';
 import { Divider } from 'antd';
 
 type Props = {};

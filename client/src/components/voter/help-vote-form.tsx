@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import QuestionsFormFields from '../common/questions-form-fields';
 import { Button, Checkbox, Form, Typography } from 'antd';
-import { Candidate } from '../../hooks/useCandidates';
+import { Candidate } from '../../hooks/use-candidates';
 import { VoterAnswers, findMostSuitableCandidate } from '../../utils/find-most-suitable-candidate';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 

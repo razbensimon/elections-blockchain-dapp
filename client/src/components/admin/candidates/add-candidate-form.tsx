@@ -1,6 +1,6 @@
 import { Button, Form, Input, Typography } from 'antd';
-import useElections from '../../../contexts/ElectionsContext/useElections';
-import { Status, useElectionsStatus } from '../../../hooks/useElectionsStatus';
+import useElections from '../../../contexts/elections-context/use-elections';
+import { Status, useElectionsStatus } from '../../../hooks/use-elections-status';
 import QuestionsFormFields from '../../common/questions-form-fields';
 
 const { Title } = Typography;

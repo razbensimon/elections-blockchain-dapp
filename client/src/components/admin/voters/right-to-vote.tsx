@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useElections } from '../../../contexts/ElectionsContext';
-import { Status, useElectionsStatus } from '../../../hooks/useElectionsStatus';
+import { useElections } from '../../../contexts/elections-context';
+import { Status, useElectionsStatus } from '../../../hooks/use-elections-status';
 
 type Props = {};
 

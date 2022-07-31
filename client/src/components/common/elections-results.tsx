@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ElectionsCountdown } from './elections-countdown';
-import { useElections } from '../../contexts/ElectionsContext';
-import { Status, useElectionsStatus } from '../../hooks/useElectionsStatus';
-import { Candidate } from '../../hooks/useCandidates';
+import { useElections } from '../../contexts/elections-context';
+import { Status, useElectionsStatus } from '../../hooks/use-elections-status';
+import { Candidate } from '../../hooks/use-candidates';
 
 type Props = {};
 

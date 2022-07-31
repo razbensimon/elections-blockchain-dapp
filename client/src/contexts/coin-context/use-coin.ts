@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import CoinContext from './CoinContext';
+import CoinContext from './coin-context';
 
 const useCoin = () => useContext(CoinContext);
 

@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/lib/table/interface';
-import { Candidate, useCandidates } from '../../../hooks/useCandidates';
-import { useAdmin } from '../../../hooks/useAdmin';
+import { Candidate, useCandidates } from '../../../hooks/use-candidates';
+import { useAdmin } from '../../../hooks/use-admin';
 
 type Props = {};
 

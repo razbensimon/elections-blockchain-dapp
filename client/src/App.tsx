@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/layout';
-import { CoinContext } from './contexts/CoinContext';
-import { ElectionsContext } from './contexts/ElectionsContext';
-import { RightToVoteContext } from './contexts/RightToVoteContext';
+import { CoinContext } from './contexts/coin-context';
+import { ElectionsContext } from './contexts/elections-context';
+import { RightToVoteContext } from './contexts/right-to-vote-context';
 import AdminPage from './components/routes/admin-page';
 import VoterPage from './components/routes/voter-page';
-import ContractProvider from './contexts/common/ContractProvider';
+import ContractProvider from './contexts/common/contract-provider';
 import styles from './App.module.scss';
-import { useAdmin } from './hooks/useAdmin';
+import { useAdmin } from './hooks/use-admin';
 
 function AppRoutes() {
   const { isAdmin, isLoading } = useAdmin();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useElections from '../contexts/ElectionsContext/useElections';
+import useElections from '../contexts/elections-context/use-elections';
 
 export type Candidate = {
   id: number;

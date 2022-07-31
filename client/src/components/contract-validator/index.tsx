@@ -1,6 +1,6 @@
-import useElections from '../../contexts/ElectionsContext/useElections';
-import NoticeNoArtifact from './NoticeNoArtifact';
-import NoticeWrongNetwork from './NoticeWrongNetwork';
+import useElections from '../../contexts/elections-context/use-elections';
+import NoticeNoArtifact from './notice-no-artifact';
+import NoticeWrongNetwork from './notice-wrong-network';
 
 type Props = {
   children?: React.ReactNode;

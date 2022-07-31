@@ -7,7 +7,7 @@ import VoteForm from '../voter/vote-form';
 import { ElectionsResults } from '../common/elections-results';
 import Reward from '../admin/voters/reward';
 import CandidatesTable from '../admin/candidates/candidates-table';
-import { Status, useElectionsStatus } from '../../hooks/useElectionsStatus';
+import { Status, useElectionsStatus } from '../../hooks/use-elections-status';
 
 export default function VoterPage() {
   const { status } = useElectionsStatus();

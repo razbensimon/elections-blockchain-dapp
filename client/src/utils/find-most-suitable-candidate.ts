@@ -1,5 +1,5 @@
 import maxBy from 'lodash/maxBy';
-import { Candidate } from '../hooks/useCandidates';
+import { Candidate } from '../hooks/use-candidates';
 
 type QuestionPropName = 'expertise' | 'religiousParty' | 'politicalSide';
 export type VoterAnswers = Pick<Candidate, QuestionPropName>;
