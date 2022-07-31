@@ -8,9 +8,23 @@ export function findMostSuitableCandidate(candidates: Candidate[], voterAnswers:
 
   candidates.forEach(candidate => {
     let score = 0;
-    if (voterAnswers.expertise === candidate.expertise) score++;
-    if (voterAnswers.religiousParty === candidate.religiousParty) score++;
-    if (voterAnswers.politicalSide === candidate.politicalSide) score++;
+    if (voterAnswers.expertise && candidate.expertise && voterAnswers.expertise === candidate.expertise) {
+      score++;
+    }
+    if (
+      voterAnswers.religiousParty &&
+      candidate.religiousParty &&
+      voterAnswers.religiousParty === candidate.religiousParty
+    ) {
+      score++;
+    }
+    if (
+      voterAnswers.politicalSide &&
+      candidate.politicalSide &&
+      voterAnswers.politicalSide === candidate.politicalSide
+    ) {
+      score++;
+    }
 
     if (score > 0) {
       candidatesScore.push({ candidate, score });

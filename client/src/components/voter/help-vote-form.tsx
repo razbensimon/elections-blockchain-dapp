@@ -31,11 +31,12 @@ export const HelpVoteForm: React.FC<{ candidates: Candidate[] }> = ({ candidates
                   htmlType="button"
                   onClick={() => {
                     const voterAnswers: CandidateAnswers = {
-                      expertise: form.getFieldValue('expertise'),
-                      politicalSide: form.getFieldValue('politicalSide'),
-                      religiousParty: form.getFieldValue('religiousParty')
+                      expertise: form.getFieldValue('expertise') ?? '',
+                      politicalSide: form.getFieldValue('politicalSide') ?? '',
+                      religiousParty: form.getFieldValue('religiousParty') ?? ''
                     };
-                    setChosenCandidate(findMostSuitableCandidate(candidates, voterAnswers));
+                    const candidate = findMostSuitableCandidate(candidates, voterAnswers);
+                    setChosenCandidate(candidate);
                   }}>
                   Calculate
                 </Button>

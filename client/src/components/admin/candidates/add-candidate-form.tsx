@@ -29,7 +29,12 @@ const AddCandidateForm: React.FC<Props> = () => {
           name="control-hooks"
           onFinish={async values => {
             await contract.methods
-              .addCandidate(values.candidateName, values.politicalSide, values.religiousParty, values.expertise)
+              .addCandidate(
+                values.candidateName,
+                values.politicalSide ?? '',
+                values.religiousParty ?? '',
+                values.expertise ?? ''
+              )
               .send({ from: accounts[0] });
           }}>
           <Form.Item name="candidateName" label="Candidate name" rules={[{ required: true }]}>
