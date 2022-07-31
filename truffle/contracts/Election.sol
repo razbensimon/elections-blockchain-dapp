@@ -41,15 +41,17 @@ contract Election is Ownable {
 	RightToVote public rightToVote;
 
 	// EVENTS
+	event candidateAddedEvent(uint indexed _candidateId);
 	event votedEvent(uint indexed _candidateId);
-	event voterAdded(address voter);
+	event voterAddedEvent(address voter);
+	event electionsStartedEvent(uint256 _startTime, uint256 _endTime);
+	event electionsEndedEvent();
 
 	// MODIFIERS
 	modifier isStatus(Status _status){
 		require(elections.status == _status, "Can't perform in this phase of elections");
 		_;
 	}
-
 
 	// CONSTRUCTOR
 	constructor() {
@@ -75,6 +77,7 @@ contract Election is Ownable {
 			_religiousParty,
 			_expertise);
 
+		emit candidateAddedEvent(candidatesCount);
 		candidatesCount++;
 	}
 
@@ -112,7 +115,7 @@ contract Election is Ownable {
 
 		rightToVote.giveRightToVote(_voterAddress);
 
-		emit voterAdded(_voterAddress);
+		emit voterAddedEvent(_voterAddress);
 	}
 
 	function startVote(uint256 _endTime)
@@ -124,15 +127,14 @@ contract Election is Ownable {
 		elections.startTime = nowInSeconds;
 		elections.endTime = _endTime;
 
-		//emit voteStarted();
+		emit electionsStartedEvent(elections.startTime, elections.endTime);
 	}
 
 	function endVote()
 	public onlyOwner isStatus(Status.Voting)
 	{
 		elections.status = Status.Ended;
-		//finalResult = countResult; //move result from private countResult to public finalResult
-		//emit voteEnded(finalResult);
+		emit electionsEndedEvent();
 	}
 
 	function vote(uint _candidateId, address _coinContractAddress)
