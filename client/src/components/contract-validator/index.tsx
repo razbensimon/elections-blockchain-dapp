@@ -4,17 +4,23 @@ import NoticeWrongNetwork from './NoticeWrongNetwork';
 
 type Props = {
   children?: React.ReactNode;
-  contract: string;
+  contractName: string;
 };
 
-function Demo({ children, contract }: Props) {
+function Validator({ children, contractName }: Props) {
   const { state } = useElections();
 
   return (
-    <div className="demo">
-      {!state.artifact ? <NoticeNoArtifact contract={contract} /> : !state.contract ? <NoticeWrongNetwork /> : children}
+    <div>
+      {!state.artifact ? (
+        <NoticeNoArtifact contract={contractName} />
+      ) : !state.contract ? (
+        <NoticeWrongNetwork />
+      ) : (
+        children
+      )}
     </div>
   );
 }
 
-export default Demo;
+export default Validator;

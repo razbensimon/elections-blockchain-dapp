@@ -1,6 +1,6 @@
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import { Candidate } from '../../hooks/useCandidates';
-import { CandidateAnswers, findMostSuitableCandidate } from '../../utils/utils';
+import { CandidateAnswers, findMostSuitableCandidate } from '../../utils/find-most-suitable-candidate';
 import { useCallback, useState } from 'react';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 const { Option } = Select;

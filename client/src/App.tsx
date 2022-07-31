@@ -28,7 +28,7 @@ function App() {
         <ContractProvider Context={ElectionsContext} contractName={mainContract}>
           <div className={styles.app}>
             <BrowserRouter>
-              <Layout contract={mainContract}>
+              <Layout contractName={mainContract}>
                 <AppRoutes />
               </Layout>
             </BrowserRouter>
