@@ -2,13 +2,13 @@ import { useCallback, useState } from 'react';
 import QuestionsFormFields from '../common/questions-form-fields';
 import { Button, Checkbox, Form, Typography } from 'antd';
 import { Candidate } from '../../hooks/useCandidates';
-import { CandidateAnswers, findMostSuitableCandidate } from '../../utils/find-most-suitable-candidate';
+import { VoterAnswers, findMostSuitableCandidate } from '../../utils/find-most-suitable-candidate';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 const { Title } = Typography;
 
 export const HelpVoteForm: React.FC<{ candidates: Candidate[] }> = ({ candidates = [] }) => {
-  const [form] = Form.useForm<CandidateAnswers>();
+  const [form] = Form.useForm<VoterAnswers>();
   const [needHelp, setNeedHelp] = useState<boolean>(false);
   const [chosenCandidate, setChosenCandidate] = useState<Candidate | null>();
 
@@ -30,7 +30,7 @@ export const HelpVoteForm: React.FC<{ candidates: Candidate[] }> = ({ candidates
                   type="primary"
                   htmlType="button"
                   onClick={() => {
-                    const voterAnswers: CandidateAnswers = {
+                    const voterAnswers: VoterAnswers = {
                       expertise: form.getFieldValue('expertise') ?? '',
                       politicalSide: form.getFieldValue('politicalSide') ?? '',
                       religiousParty: form.getFieldValue('religiousParty') ?? ''
