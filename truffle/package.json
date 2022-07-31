@@ -15,6 +15,7 @@
     "test": "truffle test",
     "build": "truffle compile",
     "build:watch": "nodemon --ext 'js,sol' --exec 'truffle compile'",
+    "reset": "truffle migrate --network development --reset",
     "start": "lite-server"
   },
   "author": "Raz Ben Simon",
