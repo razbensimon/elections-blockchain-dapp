@@ -10,11 +10,11 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract VotingToken is Ownable, ERC721 {
 	uint256 public tokenCounter;
 
-	constructor() Ownable() ERC721("Voting", "VOT"){
+	constructor() Ownable() ERC721("RightToVote", "RTV"){
 		tokenCounter = 0;
 	}
 
-	function createToken(address _voter) public onlyOwner returns (uint256) {
+	function giveRightToVote(address _voter) public onlyOwner returns (uint256) {
 		uint newTokenId = tokenCounter;
 		_safeMint(_voter, newTokenId);
 		tokenCounter = tokenCounter + 1;

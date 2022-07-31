@@ -110,7 +110,7 @@ contract Election is Ownable {
 		voters[_voterAddress] = Voter(_voterAddress, false);
 		votersCount++;
 
-		votingToken.createToken(_voterAddress);
+		votingToken.giveRightToVote(_voterAddress);
 
 		emit voterAdded(_voterAddress);
 	}
