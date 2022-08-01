@@ -23,7 +23,7 @@ const ContractProvider: React.FC<Props> = ({ Context, contractName, children }: 
 
         address = artifact.networks[networkID].address;
         contract = new web3.eth.Contract(abi, address);
-        console.log(contractName, address);
+        //console.log(contractName, address);
 
         dispatch({
           type: actions.init,

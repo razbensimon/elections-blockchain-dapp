@@ -16,32 +16,40 @@ const Reward: React.FC<Props> = () => {
 
   const { status } = useElectionsStatus();
   const [reward, setReward] = useState<number>();
+  const [importAddress, setImportAddress] = useState<string>();
 
   useEffect(() => {
     if (!contract || !coinContract) return;
     if (status !== Status.Ended) return;
 
+    console.log('reward contract address:', coinContract._address);
+    setImportAddress(coinContract._address);
+
     (async () => {
       try {
         const reward = await contract.methods.getRewardBalance(coinContract._address).call({ from: accounts[0] });
         setReward(reward);
+        console.log('reward', reward);
       } catch (error: any) {
         console.log('getRewardBalance failed to retrieve, probably you didnt vote');
       }
     })();
   }, [coinContract, contract, accounts, status]);
 
+  if (!reward) {
+    return null;
+  }
+
   return (
     <>
-      {reward !== undefined ? (
-        <>
-          <div style={{ paddingTop: '1em' }}>
-            You got rewarded with <span style={{ color: 'purple', fontWeight: 'bold' }}>{reward / 10 ** 18}</span> ERC20
-            Tokens!
-          </div>
-          <Divider />
-        </>
-      ) : null}
+      <div style={{ paddingTop: '1em' }}>
+        You got rewarded with <span style={{ color: 'purple', fontWeight: 'bold' }}>{reward / 10 ** 18}</span> ERC20
+        Tokens!
+      </div>
+      <div>
+        Import in metamask: <code style={{ display: 'inline-block' }}>{importAddress}</code>
+      </div>
+      <Divider />
     </>
   );
 };
